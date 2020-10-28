@@ -4,7 +4,7 @@
  * Created by 2020/10/28 11:28
  **/
 
-namespace Szkj\Rbac;
+namespace Szkj\Rbac\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +22,10 @@ class RbacServiceProvider extends ServiceProvider
 
     }
 
+    /**
+     * 表迁移
+     */
     public function registerMigrations(){
-        $this->loadMigrationsFrom(__DIR__ . '../database/migrations');
-
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 }

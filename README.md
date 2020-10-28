@@ -1,12 +1,14 @@
 <h1 align="center"> rbac </h1>
 
-<p align="center"> .</p>
+<p align="center"> 
+0.0.1
+</p>
 
 
 ## Installing
 
 ```shell
-$ composer require szkj/rbac -vvv
+$ composer require szkj/rbac
 ```
 
 ## Usage
