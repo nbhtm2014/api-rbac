@@ -11,13 +11,19 @@ use Illuminate\Support\ServiceProvider;
 class RbacServiceProvider extends ServiceProvider
 {
     public function boot(){
-        $this->registerPublishing();
+        $this->registerMigrations();
+//        $this->registerPublishing();
     }
 
     /**
      * 资源发布
      */
     public function registerPublishing(){
-        $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'rbac-migrations');
+
+    }
+
+    public function registerMigrations(){
+        $this->loadMigrationsFrom(__DIR__ . '../database/migrations');
+
     }
 }
