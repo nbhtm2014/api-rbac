@@ -18,8 +18,6 @@ class RbacServiceProvider extends ServiceProvider
      * 资源发布
      */
     public function registerPublishing(){
-        if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'rbac-migrations');
-        }
+        $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'rbac-migrations');
     }
 }
