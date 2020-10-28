@@ -31,7 +31,7 @@ class CreateRbacTable extends Migration
      * @return string
      */
     public function tableName(string $name):string{
-        return $this->getPrefix().$name;
+        return $name;
     }
 
     /**
