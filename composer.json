@@ -15,8 +15,7 @@
     "autoload": {
         "psr-4": {
             "Szkj\\Rbac\\": "./src"
-        },
-        "files": ["database/migrations/2020_10_28_000000_create_rabc_tables.php"]
+        }
     },
     "extra": {
         "laravel": {

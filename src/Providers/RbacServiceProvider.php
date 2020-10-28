@@ -12,7 +12,6 @@ class RbacServiceProvider extends ServiceProvider
 {
     public function boot(){
         $this->registerMigrations();
-//        $this->registerPublishing();
     }
 
     /**
@@ -26,6 +25,6 @@ class RbacServiceProvider extends ServiceProvider
      * 表迁移
      */
     public function registerMigrations(){
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 }

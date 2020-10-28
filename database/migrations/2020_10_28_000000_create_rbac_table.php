@@ -8,7 +8,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRbacTables extends Migration
+class CreateRbacTable extends Migration
 {
     /**
      * @return string
@@ -86,7 +86,7 @@ class CreateRbacTables extends Migration
             $table->string('path',255);
             $table->string('methods',50);
             $table->string('name',255)->nullable();
-            $table->tinyInteger('default',1)->default(0);
+            $table->tinyInteger('default')->default(0);
             $table->integer('pid')->default(0);
             $table->index(['pid'],'pid');
             $table->index(['path','name'],'path');
