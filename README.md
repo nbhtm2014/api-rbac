@@ -9,6 +9,8 @@
 
 ```shell
 $ composer require szkj/rbac
+
+$ php artisan migrate
 ```
 
 ## Usage

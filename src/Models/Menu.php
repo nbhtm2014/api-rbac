@@ -9,9 +9,11 @@ namespace Szkj\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Szkj\Rbac\Traits\DateTimeFormatter;
 
 class Menu extends Model
 {
+    use DateTimeFormatter;
     /**
      * table name
      * @var string
