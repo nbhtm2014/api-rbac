@@ -17,9 +17,20 @@ use Szkj\Rbac\Middleware\ControlOfAuthority;
 class RbacServiceProvider extends ServiceProvider
 {
     /**
-     * @var array 
+     * @var array
      */
-    protected $middlewareGroups = ['auth:api'];
+    protected $routeMiddleware = [
+        'szkj.rbac' => ControlOfAuthority::class,
+    ];
+
+    /**
+     * @var array
+     */
+    protected $middlewareGroups = [
+        'szkj' => [
+            'szkj.rbac',
+        ],
+    ];
     /**
      * @return void
      */
@@ -27,7 +38,7 @@ class RbacServiceProvider extends ServiceProvider
     {
         $this->registerMigrations();
         $this->registerRoutes();
-        $this->registerMiddleware('rbac',ControlOfAuthority::class);
+        $this->registerMiddleware();
     }
 
     /**
@@ -38,11 +49,19 @@ class RbacServiceProvider extends ServiceProvider
 
     }
 
-    public function registerMiddleware($name,$class){
+    public function registerMiddleware(){
 
-        $router = $this->app['router'];
+        $router = $this->app->make('router');
 
-        $router->aliasMiddleware($name, $class);
+        // register route middleware.
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            $router->aliasMiddleware($key, $middleware);
+        }
+
+        // register middleware group.
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            $router->middlewareGroup($key, $middleware);
+        }
 
     }
 
@@ -64,28 +83,28 @@ class RbacServiceProvider extends ServiceProvider
         /**
          * 菜单
          */
-        $router->apiResource('menus', MenusController::class)->middleware($this->middlewareGroups);
+        $router->apiResource('menus', MenusController::class)->middleware(['auth:api','szkj.rbac']);
         /**
          * 角色
          */
-        $router->apiResource('roles', RolesController::class)->middleware($this->middlewareGroups);
-        $router->post('distribution-menus', RolesController::class . '@distributionMenus')->middleware($this->middlewareGroups);
-        $router->post('distribution-routes', RolesController::class . '@distributionRoutes')->middleware($this->middlewareGroups);
-        $router->post('copy', RolesController::class . '@copy')->name('复制角色')->middleware($this->middlewareGroups);
-        $router->post('routes', RolesController::class . '@getRoutes')->middleware($this->middlewareGroups);
-        $router->post('menus', RolesController::class . '@getMenus')->middleware($this->middlewareGroups);
+        $router->apiResource('roles', RolesController::class)->middleware(['auth:api','szkj.rbac']);
+        $router->post('distribution-menus', RolesController::class . '@distributionMenus')->middleware(['auth:api','szkj.rbac']);
+        $router->post('distribution-routes', RolesController::class . '@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
+        $router->post('copy', RolesController::class . '@copy')->name('复制角色')->middleware(['auth:api','szkj.rbac']);
+        $router->post('routes', RolesController::class . '@getRoutes')->middleware(['auth:api','szkj.rbac']);
+        $router->post('menus', RolesController::class . '@getMenus')->middleware(['auth:api','szkj.rbac']);
         /**
          * 路由
          */
-        $router->apiResource('routes', RoutesController::class)->middleware($this->middlewareGroups);
-        $router->post('renovateRoute', RoutesController::class . '@renovateRoute')->middleware($this->middlewareGroups);
-        $router->post('list', RoutesController::class . '@list')->middleware($this->middlewareGroups);
+        $router->apiResource('routes', RoutesController::class)->middleware(['auth:api','szkj.rbac']);
+        $router->post('renovateRoute', RoutesController::class . '@renovateRoute')->middleware(['auth:api','szkj.rbac']);
+        $router->post('list', RoutesController::class . '@list')->middleware(['auth:api','szkj.rbac']);
         /**
          * 路由组
          */
-        $router->apiResource('routes_catalogs', RoutesCatalogsController::class)->middleware($this->middlewareGroups);
-        $router->post('distribution-routes',RoutesCatalogsController::class .'@distributionRoutes')->middleware($this->middlewareGroups);
-        $router->post('remove',RoutesCatalogsController::class .'@remove')->middleware($this->middlewareGroups);
+        $router->apiResource('routes_catalogs', RoutesCatalogsController::class)->middleware(['auth:api','szkj.rbac']);
+        $router->post('distribution-routes',RoutesCatalogsController::class .'@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
+        $router->post('remove',RoutesCatalogsController::class .'@remove')->middleware(['auth:api','szkj.rbac']);
 
     }
 }

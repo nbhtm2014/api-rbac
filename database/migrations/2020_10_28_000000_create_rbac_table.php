@@ -102,6 +102,10 @@ class CreateRbacTable extends Migration
 
             $table->timestamps();
         });
+
+        Schema::table('users',function (Blueprint $table){
+            $table->tinyInteger('superadmin')->default(0);
+        });
     }
 
     /**
