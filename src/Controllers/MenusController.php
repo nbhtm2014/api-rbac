@@ -21,7 +21,6 @@ class MenusController extends BaseController
             ->where('pid', 0)
             ->with('children')
             ->get();
-
         return $this->success($data);
     }
 

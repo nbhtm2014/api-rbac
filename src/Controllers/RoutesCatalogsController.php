@@ -5,7 +5,107 @@ namespace Szkj\Rbac\Controllers;
 
 
 
+use Illuminate\Support\Facades\Log;
+use Szkj\Rbac\Models\Route;
+use Szkj\Rbac\Models\RouteCatalog;
+use Szkj\Rbac\Requests\RouteCatalog\DistributionRoutesRequest;
+use Szkj\Rbac\Requests\RouteCatalog\RouteCatalogStoreRequest;
+use Szkj\Rbac\Requests\RouteCatalog\RouteCatalogUpdateRequest;
+
 class RoutesCatalogsController extends BaseController
 {
-    //
+    /**
+     * @return mixed
+     */
+    public function index(){
+        $data = RouteCatalog::query()->with('hasManyRoutes')->get()->toArray();
+        return $this->success($data);
+    }
+
+    /**
+     * @param RouteCatalogStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(RouteCatalogStoreRequest $request){
+
+        $data = $request->validated();
+
+        $data = RouteCatalog::query()->create($data);
+
+        return $this->success($data);
+
+    }
+
+    /**
+     * @param RouteCatalogUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(RouteCatalogUpdateRequest $request,$id){
+
+        $data = $request->validated();
+
+        RouteCatalog::query()->updateOrCreate(['id'=>$id],$data);
+
+        return $this->success();
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
+    {
+        $route_catalog = RouteCatalog::query()->find($id)->with('hasManyRoutes');
+
+        return $this->success($route_catalog);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id){
+
+        RouteCatalog::query()->where('id',$id)->delete();
+
+        Route::query()->where('pid',$id)->update(['pid'=>0]);
+
+        Log::info('删除了路由分组');
+
+        return $this->success();
+    }
+
+    /**
+     * @param DistributionRoutesRequest $request
+     * @return mixed
+     */
+    public function distributionRoutes(DistributionRoutesRequest $request){
+        $route_ids = json_decode($request->route_ids,true);
+        $id = $request->id;
+        if (is_array($route_ids)){
+            if(Route::query()->whereIn('id',$route_ids)->update(['pid'=>$id])){
+                Log::info('分配路由分组成功');
+                return $this->success();
+            }
+            return $this->error(422,'分配失败');
+        }
+        return $this->error(422,'格式错误');
+    }
+
+    /**
+     * @param DistributionRoutesRequest $request
+     * @return mixed
+     */
+    public function remove(DistributionRoutesRequest $request){
+        $data = $request->validated();
+        if (isset($data['route_ids'])){
+            $route_ids = json_decode($data['route_ids'],true);
+            if (is_array($route_ids)){
+                Route::query()->whereIn('id',$route_ids)->where('pid',$data['id'])->update(['pid'=>0]);
+                Log::info('移除了路由分组',$route_ids);
+            }
+        }
+        return $this->success();
+    }
 }
