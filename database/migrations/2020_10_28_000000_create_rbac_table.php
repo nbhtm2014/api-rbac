@@ -103,7 +103,11 @@ class CreateRbacTable extends Migration
             $table->timestamps();
         });
 
+
         Schema::table('users',function (Blueprint $table){
+            $table->string('phone',100)->nullable();
+            $table->string('ip',255)->nullable();
+            $table->integer('role_id')->default(0);
             $table->tinyInteger('superadmin')->default(0);
         });
     }

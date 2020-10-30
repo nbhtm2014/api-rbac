@@ -11,6 +11,8 @@
 $ composer require szkj/rbac
 
 $ php artisan migrate
+
+$ php artisan db:seed
 ```
 
 ## Usage
