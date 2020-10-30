@@ -79,7 +79,7 @@ class RbacServiceProvider extends ServiceProvider
     public function registerRoutes()
     {
 
-        $this->loadRoutesFrom(__DIR__ . '/szkj-rbac-route.php');
+        $this->loadRoutesFrom(__DIR__ . '/../szkj-rbac-route.php');
 //        /* @var Router $router */
 //        $router = $this->app['router'];
 //        /**
