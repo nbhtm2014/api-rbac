@@ -78,33 +78,35 @@ class RbacServiceProvider extends ServiceProvider
      */
     public function registerRoutes()
     {
-        /* @var Router $router */
-        $router = $this->app['router'];
-        /**
-         * 菜单
-         */
-        $router->prefix('api')->apiResource('menus', MenusController::class)->middleware(['auth:api','szkj.rbac']);
-        /**
-         * 角色
-         */
-        $router->prefix('api')->apiResource('roles', RolesController::class)->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('distribution-menus', RolesController::class . '@distributionMenus')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('distribution-routes', RolesController::class . '@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('copy', RolesController::class . '@copy')->name('复制角色')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('routes', RolesController::class . '@getRoutes')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('menus', RolesController::class . '@getMenus')->middleware(['auth:api','szkj.rbac']);
-        /**
-         * 路由
-         */
-        $router->prefix('api')->apiResource('routes', RoutesController::class)->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('renovateRoute', RoutesController::class . '@renovateRoute')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('list', RoutesController::class . '@list')->middleware(['auth:api','szkj.rbac']);
-        /**
-         * 路由组
-         */
-        $router->prefix('api')->apiResource('routes_catalogs', RoutesCatalogsController::class)->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('distribution-routes',RoutesCatalogsController::class .'@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
-        $router->prefix('api')->post('remove',RoutesCatalogsController::class .'@remove')->middleware(['auth:api','szkj.rbac']);
+
+        $this->loadRoutesFrom(__DIR__ . '/szkj-rbac-route.php');
+//        /* @var Router $router */
+//        $router = $this->app['router'];
+//        /**
+//         * 菜单
+//         */
+//        $router->prefix('api')->apiResource('menus', MenusController::class)->middleware(['auth:api','szkj.rbac']);
+//        /**
+//         * 角色
+//         */
+//        $router->prefix('api')->apiResource('roles', RolesController::class)->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('distribution-menus', RolesController::class . '@distributionMenus')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('distribution-routes', RolesController::class . '@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('copy', RolesController::class . '@copy')->name('复制角色')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('routes', RolesController::class . '@getRoutes')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('menus', RolesController::class . '@getMenus')->middleware(['auth:api','szkj.rbac']);
+//        /**
+//         * 路由
+//         */
+//        $router->prefix('api')->apiResource('routes', RoutesController::class)->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('renovateRoute', RoutesController::class . '@renovateRoute')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('list', RoutesController::class . '@list')->middleware(['auth:api','szkj.rbac']);
+//        /**
+//         * 路由组
+//         */
+//        $router->prefix('api')->apiResource('routes_catalogs', RoutesCatalogsController::class)->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('distribution-routes',RoutesCatalogsController::class .'@distributionRoutes')->middleware(['auth:api','szkj.rbac']);
+//        $router->prefix('api')->post('remove',RoutesCatalogsController::class .'@remove')->middleware(['auth:api','szkj.rbac']);
 
     }
 }
