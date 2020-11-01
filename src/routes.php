@@ -11,6 +11,9 @@ use Szkj\Rbac\Controllers\RoutesController;
 
 
 Route::prefix('api')->middleware(['auth:api','szkj.rbac'])->group(function (){
+    /**
+     * 菜单
+     */
     Route::apiResource('menus', MenusController::class);
     /**
      * 角色
@@ -18,7 +21,7 @@ Route::prefix('api')->middleware(['auth:api','szkj.rbac'])->group(function (){
     Route::apiResource('roles', RolesController::class);
     Route::post('distribution-menus', RolesController::class . '@distributionMenus');
     Route::post('distribution-routes', RolesController::class . '@distributionRoutes');
-    Route::post('copy', RolesController::class . '@copy')->name('复制角色');
+    Route::post('copy', RolesController::class . '@copy');
     Route::post('routes', RolesController::class . '@getRoutes');
     Route::post('menus', RolesController::class . '@getMenus');
     /**
