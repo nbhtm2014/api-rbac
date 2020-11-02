@@ -6,12 +6,7 @@
 
 namespace Szkj\Rbac\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use Szkj\Rbac\Controllers\MenusController;
-use Szkj\Rbac\Controllers\RolesController;
-use Szkj\Rbac\Controllers\RoutesCatalogsController;
-use Szkj\Rbac\Controllers\RoutesController;
 use Szkj\Rbac\Middleware\ControlOfAuthority;
 
 class RbacServiceProvider extends ServiceProvider
