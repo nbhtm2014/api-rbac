@@ -1,7 +1,7 @@
 <h1 align="center"> rbac </h1>
 
 <p align="center"> 
-0.0.1
+0.1.0
 </p>
 
 
