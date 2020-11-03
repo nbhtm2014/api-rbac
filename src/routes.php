@@ -10,7 +10,7 @@ use Szkj\Rbac\Controllers\RoutesCatalogsController;
 use Szkj\Rbac\Controllers\RoutesController;
 
 
-Route::prefix('api')->middleware(['auth:api','szkj.rbac'])->group(function (){
+Route::prefix('api/rbac')->middleware(['auth:api','szkj.rbac'])->group(function (){
     /**
      * 菜单
      */
