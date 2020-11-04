@@ -7,32 +7,34 @@
 namespace Szkj\Rbac\Controllers;
 
 
-use Illuminate\Http\JsonResponse;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-
+use \Dingo\Api\Http\Response;
 class BaseController extends Controller
 {
+    use Helpers;
+
     /**
      * @param null $data
      * @param string $message
      * @param int $code
-     * @return JsonResponse
+     * @return Response
      */
-    public function success($data = null,string $message = '操作成功',  int $code = 200)
+    public function success($data = null, string $message = '操作成功', int $code = 200)
     {
         $success = [
             'code'    => $code,
             'message' => $message,
         ];
         if (!empty($data)) $success['data'] = $data;
-        return  response()->json($success);
+        return $this->response->array($success);
     }
 
     /**
      * @param int $code
      * @param string $message
      * @param mixed ...$array
-     * @return JsonResponse
+     * @return Response
      */
     public function error(int $code, string $message = '操作失败', ...$array)
     {
@@ -43,6 +45,16 @@ class BaseController extends Controller
         if (!empty($array)) {
             array_push($error, json_encode($array));
         }
-        return  response()->json($error);
+        return $this->response->array($error);
+    }
+
+
+    /**
+     * @param $model
+     * @param null $transformer
+     * @return Response
+     */
+    public function paginator($model,$transformer = null){
+        return $this->response->paginator($model,$transformer);
     }
 }
