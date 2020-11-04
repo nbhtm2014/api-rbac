@@ -26,7 +26,7 @@ class MenusController extends BaseController
 
     /**
      * @param MenuStoreRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function store(MenuStoreRequest $request)
     {
@@ -44,7 +44,7 @@ class MenusController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
@@ -56,7 +56,7 @@ class MenusController extends BaseController
     /**
      * @param MenuUpdateRequest $request
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function update(MenuUpdateRequest $request,$id){
         $update = $request->validated();
@@ -70,7 +70,7 @@ class MenusController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      * @throws \Exception
      */
     public function destroy($id){

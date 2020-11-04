@@ -48,7 +48,7 @@ class RolesController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
@@ -60,7 +60,7 @@ class RolesController extends BaseController
     /**
      * @param RoleUpdateRequest $request
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function update(RoleUpdateRequest $request,$id)
     {
@@ -76,7 +76,7 @@ class RolesController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      * @throws \Exception
      */
     public function destroy($id)
@@ -99,7 +99,7 @@ class RolesController extends BaseController
 
     /**
      * @param DistributionRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function distributionMenus(DistributionRequest $request)
     {
@@ -126,7 +126,7 @@ class RolesController extends BaseController
 
     /**
      * @param DistributionRoutesRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request)
     {
@@ -153,7 +153,7 @@ class RolesController extends BaseController
 
     /**
      * @param CopyRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function copy(CopyRequest $request)
     {
@@ -181,7 +181,7 @@ class RolesController extends BaseController
 
     /**
      * @param GetRoutesRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function getRoutes(GetRoutesRequest $request)
     {
@@ -203,7 +203,7 @@ class RolesController extends BaseController
 
     /**
      * @param GetMenusRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function getMenus(GetMenusRequest $request)
     {

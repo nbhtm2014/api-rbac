@@ -48,13 +48,4 @@ class BaseController extends Controller
         return $this->response->array($error);
     }
 
-
-    /**
-     * @param $model
-     * @param null $transformer
-     * @return Response
-     */
-    public function paginator($model,$transformer = null){
-        return $this->response->paginator($model,$transformer);
-    }
 }

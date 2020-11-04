@@ -24,7 +24,7 @@ class RoutesCatalogsController extends BaseController
 
     /**
      * @param RouteCatalogStoreRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function store(RouteCatalogStoreRequest $request){
 
@@ -39,7 +39,7 @@ class RoutesCatalogsController extends BaseController
     /**
      * @param RouteCatalogUpdateRequest $request
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function update(RouteCatalogUpdateRequest $request,$id){
 
@@ -52,7 +52,7 @@ class RoutesCatalogsController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function show($id)
     {
@@ -63,7 +63,7 @@ class RoutesCatalogsController extends BaseController
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function destroy($id){
 
@@ -78,7 +78,7 @@ class RoutesCatalogsController extends BaseController
 
     /**
      * @param DistributionRoutesRequest $request
-     * @return mixed
+     * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request){
         $route_ids = json_decode($request->route_ids,true);
@@ -95,7 +95,7 @@ class RoutesCatalogsController extends BaseController
 
     /**
      * @param DistributionRoutesRequest $request
-     * @return mixed
+     * @return \Dingo\Api\Http\Response
      */
     public function remove(DistributionRoutesRequest $request){
         $data = $request->validated();
