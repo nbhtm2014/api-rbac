@@ -10,6 +10,7 @@ use Szkj\Rbac\Models\RouteCatalog;
 use Szkj\Rbac\Requests\Route\RouteListRequest;
 use Szkj\Rbac\Requests\Route\RouteStoreRequest;
 use Szkj\Rbac\Requests\Route\RouteUpdateRequest;
+use Szkj\Rbac\Transformers\BaseTransformer;
 
 class RoutesController extends BaseController
 {
@@ -42,8 +43,7 @@ class RoutesController extends BaseController
             })
             ->where('pid', 0)
             ->paginate(15);
-
-        return $this->success($data);
+        return $this->response->paginator($data,new BaseTransformer());
     }
 
     /**
