@@ -15,11 +15,11 @@ $api->version(config('api.version'),['middleware' => ['auth:api','szkj.rbac']], 
         /**
          * 菜单
          */
-        $api->apiResource('menus', MenusController::class);
+        $api->resource('menus', MenusController::class)->only(['index','update','store','show','destroy']);
         /**
          * 角色
          */
-        $api->apiResource('roles', RolesController::class);
+        $api->resource('roles', RolesController::class)->only(['index','update','store','show','destroy']);
         $api->post('distribution-menus', RolesController::class . '@distributionMenus');
         $api->post('distribution-routes', RolesController::class . '@distributionRoutes');
         $api->post('copy', RolesController::class . '@copy');
@@ -28,13 +28,13 @@ $api->version(config('api.version'),['middleware' => ['auth:api','szkj.rbac']], 
         /**
          * 路由
          */
-        $api->apiResource('routes', RoutesController::class);
+        $api->resource('routes', RoutesController::class)->only(['index','update','store','show','destroy']);
         $api->post('renovateRoute', RoutesController::class . '@renovateRoute');
         $api->post('list', RoutesController::class . '@list');
         /**
          * 路由组
          */
-        $api->apiResource('routes_catalogs', RoutesCatalogsController::class);
+        $api->resource('routes_catalogs', RoutesCatalogsController::class)->only(['index','update','store','show','destroy']);
         $api->post('distribution-routes',RoutesCatalogsController::class .'@distributionRoutes');
         $api->post('remove',RoutesCatalogsController::class .'@remove');
     });
