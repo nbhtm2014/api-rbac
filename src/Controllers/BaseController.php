@@ -9,7 +9,7 @@ namespace Szkj\Rbac\Controllers;
 
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Routing\Controller;
-use \Dingo\Api\Http\Response;
+use Dingo\Api\Http\Response;
 class BaseController extends Controller
 {
     use Helpers;
