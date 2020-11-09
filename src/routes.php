@@ -4,7 +4,6 @@
  * Created by 2020/10/30 10:16
  **/
 
-
 $api = app('Dingo\Api\Routing\Router');
 $api->version(config('api.version'), [
     'middleware' => config('szkj.route.middleware'),
@@ -20,7 +19,7 @@ $api->version(config('api.version'), [
          * 角色
          */
         $api->resource('roles', 'RolesController');
-        $api->post('distribution-menus', 'RolesControlle@distributionMenus');
+        $api->post('distribution-menus', 'RolesController@distributionMenus');
         $api->post('distribution-routes', 'RolesController@distributionRoutes');
         $api->post('copy', 'RolesController@copy');
         $api->post('routes', 'RolesController@getRoutes');
