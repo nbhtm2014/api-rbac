@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Menu;
 use App\Http\Requests\Menus\MenuStoreRequest;
 use App\Http\Requests\Menus\MenuUpdateRequest;
-DummyUseNamespace
+DummyUseNamespace;
 
 class MenusController extends BaseController
 {
