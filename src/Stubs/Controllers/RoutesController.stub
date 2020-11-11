@@ -11,6 +11,7 @@ use App\Http\Requests\Route\RouteListRequest;
 use App\Http\Requests\Route\RouteStoreRequest;
 use App\Http\Requests\Route\RouteUpdateRequest;
 use App\Http\Transformers\BaseTransformer;
+DummyUseNamespace
 
 class RoutesController extends BaseController
 {

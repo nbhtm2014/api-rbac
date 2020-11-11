@@ -9,6 +9,7 @@ use App\Models\RouteCatalog;
 use App\Http\Requests\RouteCatalog\DistributionRoutesRequest;
 use App\Http\Requests\RouteCatalog\RouteCatalogStoreRequest;
 use App\Http\Requests\RouteCatalog\RouteCatalogUpdateRequest;
+DummyUseNamespace
 
 class RoutesCatalogsController extends BaseController
 {
