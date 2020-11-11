@@ -7,6 +7,7 @@
 namespace Szkj\Rbac\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Szkj\Rbac\Console\Commands\InstallCommand;
 use Szkj\Rbac\Middleware\ControlOfAuthority;
 
 class RbacServiceProvider extends ServiceProvider
@@ -26,6 +27,13 @@ class RbacServiceProvider extends ServiceProvider
             'szkj.rbac',
         ],
     ];
+
+    /**
+     * @var array
+     */
+    protected $commands = [
+        InstallCommand::class,
+    ];
     /**
      * @return void
      */
@@ -34,6 +42,11 @@ class RbacServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->registerRoutes();
         $this->registerMiddleware();
+    }
+
+    public function register()
+    {
+        $this->commands($this->commands);
     }
 
     /**
