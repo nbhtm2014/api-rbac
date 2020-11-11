@@ -53,25 +53,50 @@ class InstallCommand extends Command
 
     public function createRequests()
     {
+        $this->makeDir('Http/Requests');
         $files = [];
-        $this->listDir(__DIR__ . '/../../stubs/Requests',$files);
-        dd($files);
+        $this->listDir(__DIR__ . '/../../Stubs/Requests', $files);
 
+        foreach ($files as $file){
+
+            $dir = basename(dirname($file));
+
+            $this->makeDir('Http/Requests/'.$dir);
+
+            $filename = pathinfo($file,PATHINFO_FILENAME);
+
+            $request = app_path("Http/Requests/{$dir}/{$filename}.php");
+
+            $stub_request =  $this->laravel['files']->get($file);
+
+            $use_BaseRequest = file_exists(app_path('Http/Requests/BaseRequest.php'))
+                ? 'use App\\Http\\Requests\\BaseRequest'
+                : 'use Szkj\\Rbac\\Requests\\BaseRequest';
+
+            $this->laravel['files']->put(
+                $request,
+                str_replace(
+                    ['DummyNamespace','DummyUseNamespace'],
+                    ["App\\Http\\Requests\\{$dir}",$use_BaseRequest],
+                    $stub_request
+                )
+            );
+            $this->line('<info>'.$filename.' file was created:</info> ' . str_replace(base_path(), '', $request));
+        }
     }
 
 
-    public function listDir($directory,array &$file)
+    protected function listDir($directory, array &$file)
     {
         $temp = scandir($directory);
-        foreach ($temp as $v) {
-            $a = $temp . '/' . $v;
-            if (is_dir($a)) {//如果是文件夹则执行
-                if ($v == '.' || $v == '..') {//判断是否为系统隐藏的文件.和..  如果是则跳过否则就继续往下走，防止无限循环再这里。
-                    continue;
-                }
-                $this->listDir($a,$file);//因为是文件夹所以再次调用自己这个函数，把这个文件夹下的文件遍历出来
+        foreach ($temp as $k => $v) {
+            if ($v == '.' || $v == '..') {
+                continue;
+            }
+            $a = $directory . '/' . $v;
+            if (is_dir($a)) {
+                $this->listDir($a, $file);
             } else {
-                $this->info($a);
                 array_push($file,$a);
             }
         }
