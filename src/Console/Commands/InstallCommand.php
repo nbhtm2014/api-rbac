@@ -48,15 +48,54 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        /**
+         * create requests
+         */
         $this->createRequests();
+
+        /**
+         * create controllers
+         */
+        $this->createControllers();
     }
 
-    public function createRequests()
+
+    /**
+     * @return void
+     */
+    public function createControllers() : void{
+        $files = [];
+        $this->listDir(__DIR__ . '/../../Stubs/Controllers', $files);
+        foreach ($files as $file){
+
+            $this->makeDir('Http/Controllers/Rbac');
+
+            $filename = pathinfo($file,PATHINFO_FILENAME);
+
+            $controller = app_path("App/Http/Controllers/Rbac/{$filename}.php");
+
+            $stub_controller =  $this->laravel['files']->get($file);
+
+            $this->laravel['files']->put(
+                $controller,
+                str_replace(
+                    'DummyNamespace',
+                    'App\\Http\\Controllers\\Rbac',
+                    $stub_controller
+                )
+            );
+            $this->line('<info>'.$filename.' file was created:</info> ' . str_replace(base_path(), '', $controller));
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function createRequests() : void
     {
         $this->makeDir('Http/Requests');
         $files = [];
         $this->listDir(__DIR__ . '/../../Stubs/Requests', $files);
-
         foreach ($files as $file){
 
             $dir = basename(dirname($file));
@@ -69,7 +108,7 @@ class InstallCommand extends Command
 
             $stub_request =  $this->laravel['files']->get($file);
 
-            $use_BaseRequest = file_exists(app_path('Http/Requests/BaseRequest.php'))
+            $use_base_request = file_exists(app_path('Http/Requests/BaseRequest.php'))
                 ? 'use App\\Http\\Requests\\BaseRequest'
                 : 'use Szkj\\Rbac\\Requests\\BaseRequest';
 
@@ -77,7 +116,7 @@ class InstallCommand extends Command
                 $request,
                 str_replace(
                     ['DummyNamespace','DummyUseNamespace'],
-                    ["App\\Http\\Requests\\{$dir}",$use_BaseRequest],
+                    ["App\\Http\\Requests\\{$dir}",$use_base_request],
                     $stub_request
                 )
             );
@@ -86,6 +125,10 @@ class InstallCommand extends Command
     }
 
 
+    /**
+     * @param $directory
+     * @param array &$file
+     */
     protected function listDir($directory, array &$file)
     {
         $temp = scandir($directory);
@@ -111,7 +154,7 @@ class InstallCommand extends Command
      */
     protected function getStub($name)
     {
-        return $this->laravel['files']->get(__DIR__ . "/../../stubs/$name.stub");
+        return $this->laravel['files']->get(__DIR__ . "/../../Stubs/$name.stub");
     }
 
     /**
