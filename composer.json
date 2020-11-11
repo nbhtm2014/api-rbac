@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "laravel/framework": "~8.0",
+        "laravel/framework": "^6.0||^7.0||^8.0",
         "dingo/api": "^3.0"
     },
     "autoload": {

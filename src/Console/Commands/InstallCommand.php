@@ -66,6 +66,11 @@ class InstallCommand extends Command
         $files = [];
         $this->listDir(__DIR__ . '/../../Stubs/Models', $files);
         foreach ($files as $file) {
+
+            $dir = basename(dirname($file));
+
+            $this->makeDir($dir);
+
             $filename = pathinfo($file, PATHINFO_FILENAME);
 
             $model = app_path("Models/{$filename}.php");
