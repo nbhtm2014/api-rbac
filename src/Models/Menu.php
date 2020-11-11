@@ -9,11 +9,9 @@ namespace Szkj\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Szkj\Rbac\Traits\DateTimeFormatter;
 
 class Menu extends Model
 {
-    use DateTimeFormatter;
     /**
      * table name
      * @var string
@@ -38,6 +36,15 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = ['name', 'path', 'icon', 'pid'];
+
+    /**
+     * @param \DateTimeInterface $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     /**
      * @return HasMany

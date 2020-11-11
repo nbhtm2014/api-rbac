@@ -9,12 +9,10 @@ namespace Szkj\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Szkj\Rbac\Traits\DateTimeFormatter;
 
 class Route extends Model
 {
 
-    use DateTimeFormatter;
     /**
      * table name
      * @var string
@@ -34,6 +32,15 @@ class Route extends Model
         $this->setConnection($connection);
 
         parent::__construct($attributes);
+    }
+
+    /**
+     * @param \DateTimeInterface $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 
     /**

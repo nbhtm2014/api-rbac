@@ -8,7 +8,7 @@ namespace Szkj\Rbac\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class BadRequestExceptions extends HttpException
+class RbacBadRequestExceptions extends HttpException
 {
     public function __construct(int $statusCode, string $message = null, \Throwable $previous = null, array $headers = [], ?int $code = 422)
     {

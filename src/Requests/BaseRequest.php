@@ -8,7 +8,7 @@ namespace Szkj\Rbac\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Szkj\Rbac\Exceptions\BadRequestExceptions;
+use Szkj\Rbac\Exceptions\RbacBadRequestExceptions;
 
 class BaseRequest extends FormRequest
 {
@@ -23,11 +23,11 @@ class BaseRequest extends FormRequest
     }
 
     public function failedValidation(Validator $validator){
-        throw new BadRequestExceptions(200,$validator->errors()->first());
+        throw new RbacBadRequestExceptions(200,$validator->errors()->first());
     }
 
 
     public function failedAuthorization(){
-        throw  new BadRequestExceptions(200,'您没有权限');
+        throw  new RbacBadRequestExceptions(200,'您没有权限');
     }
 }

@@ -10,11 +10,9 @@ namespace Szkj\Rbac\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Szkj\Rbac\Traits\DateTimeFormatter;
 
 class Role extends Model
 {
-    use DateTimeFormatter;
     /**
      * table name
      * @var string
@@ -34,6 +32,16 @@ class Role extends Model
         $this->setConnection($connection);
 
         parent::__construct($attributes);
+    }
+
+
+    /**
+     * @param \DateTimeInterface $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 
     /**

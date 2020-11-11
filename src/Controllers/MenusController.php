@@ -58,10 +58,11 @@ class MenusController extends BaseController
      * @param $id
      * @return \Dingo\Api\Http\Response
      */
-    public function update(MenuUpdateRequest $request,$id){
+    public function update(MenuUpdateRequest $request, $id)
+    {
         $update = $request->validated();
 
-        Menu::query()->updateOrCreate(['id'=>$id],$update);
+        Menu::query()->updateOrCreate(['id' => $id], $update);
 
         Log::info('修改菜单');
 
@@ -73,16 +74,17 @@ class MenusController extends BaseController
      * @return \Dingo\Api\Http\Response
      * @throws \Exception
      */
-    public function destroy($id){
-        if ($menu = Menu::query()->find($id)){
-            if (!Menu::query()->where('pid',$menu->id)->count()){
+    public function destroy($id)
+    {
+        if ($menu = Menu::query()->find($id)) {
+            if (!Menu::query()->where('pid', $menu->id)->count()) {
                 $menu->hasManyRoleMenus()->delete();
                 $menu->delete();
                 Log::info('删除菜单');
                 return $this->success();
             }
-            return $this->error(422,'该菜单下有子菜单，请先删除子菜单');
+            return $this->error(422, '该菜单下有子菜单，请先删除子菜单');
         }
-        return $this->error(422,'未找到该记录');
+        return $this->error(422, '未找到该记录');
     }
 }

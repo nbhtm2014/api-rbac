@@ -7,8 +7,7 @@
 namespace Szkj\Rbac\Middleware;
 
 
-use Szkj\Rbac\Exceptions\BadRequestExceptions;
-use Szkj\Rbac\Models\Route;
+use Szkj\Rbac\Exceptions\RbacBadRequestExceptions;
 use Closure;
 
 class ControlOfAuthority
@@ -24,12 +23,14 @@ class ControlOfAuthority
     {
         if (!config('app.debug')) {
             $user = auth()->user();
-            if (!Route::query()->whereHas('hasManyRoleRoutes', function ($query) use ($user) {
+            $route = class_exists('App\\Models\\Route') ? new \App\Models\Route() : new \Szkj\Rbac\Models\Route();
+            if (!$route->query()->whereHas('hasManyRoleRoutes', function ($query) use ($user) {
                     $query->where('role_id', $user->role_id);
                 })->where('path', $request->getRequestUri())->count() && !$user->superadmin) {
-                throw new BadRequestExceptions(422, "您没有权限");
+                throw new RbacBadRequestExceptions(422, "您没有权限");
             }
         }
         return $next($request);
     }
+
 }
