@@ -22,6 +22,7 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
+     * @param RouteCatalogStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function store(RouteCatalogStoreRequest $request)
@@ -34,6 +35,7 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
+     * @param RouteCatalogUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response
@@ -76,6 +78,7 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
+     * @param DistributionRoutesRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request)
@@ -96,6 +99,7 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
+     * @param DistributionRoutesRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function remove(DistributionRoutesRequest $request)

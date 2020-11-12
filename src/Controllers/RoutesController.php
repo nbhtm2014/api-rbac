@@ -34,6 +34,7 @@ class RoutesController extends BaseController
     }
 
     /**
+     * @param Request $request
      * @return mixed
      */
     public function index(Request $request)
@@ -49,6 +50,7 @@ class RoutesController extends BaseController
     }
 
     /**
+     * @param RouteListRequest $request
      * @return mixed
      */
     public function list(RouteListRequest $request)
@@ -66,7 +68,8 @@ class RoutesController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param RouteStoreRequest $request
+     * @return \Dingo\Api\Http\Response
      */
     public function store(RouteStoreRequest $request)
     {
@@ -80,9 +83,10 @@ class RoutesController extends BaseController
     }
 
     /**
+     * @param RouteUpdateRequest $request
      * @param $id
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Dingo\Api\Http\Response
      */
     public function update(RouteUpdateRequest $request, $id)
     {
@@ -101,9 +105,9 @@ class RoutesController extends BaseController
     /**
      * @param $id
      *
-     * @throws \Exception
+     * @return \Dingo\Api\Http\Response
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {

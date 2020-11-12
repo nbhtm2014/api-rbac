@@ -27,6 +27,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param RoleStoreRequest $request
      * @return mixed
      */
     public function store(RoleStoreRequest $request)
@@ -53,6 +54,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param RoleUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response
@@ -97,6 +99,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param DistributionRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function distributionMenus(DistributionRequest $request)
@@ -125,6 +128,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param DistributionRoutesRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request)
@@ -153,6 +157,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param CopyRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function copy(CopyRequest $request)
@@ -182,6 +187,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param GetRoutesRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function getRoutes(GetRoutesRequest $request)
@@ -203,6 +209,7 @@ class RolesController extends BaseController
     }
 
     /**
+     * @param GetMenusRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function getMenus(GetMenusRequest $request)
