@@ -1,6 +1,5 @@
 <h1 align="center"> rbac </h1>
 
-![StyleCI build status](https://github.styleci.io/repos/307898344/shield) 
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 
