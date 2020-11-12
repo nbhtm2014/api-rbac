@@ -35,6 +35,9 @@ class LaravelServiceProvider extends ServiceProvider
         InstallCommand::class,
     ];
 
+    /**
+     * @return void
+     */
     public function boot(): void
     {
         $this->registerMigrations();

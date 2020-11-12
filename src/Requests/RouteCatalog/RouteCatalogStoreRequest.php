@@ -18,7 +18,8 @@ class RouteCatalogStoreRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:routes_catalogs',
+            //
+            'name'=> 'required|unique:routes_catalogs',
         ];
     }
 }

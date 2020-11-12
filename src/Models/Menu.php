@@ -20,6 +20,8 @@ class Menu extends Model
 
     /**
      * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -36,6 +38,8 @@ class Menu extends Model
     protected $fillable = ['name', 'path', 'icon', 'pid'];
 
     /**
+     * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
@@ -43,11 +47,17 @@ class Menu extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @return HasMany
+     */
     public function hasManyMenus(): HasMany
     {
         return $this->hasMany(Menu::class, 'pid', 'id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function children(): HasMany
     {
         return $this->hasManyMenus()->with('children');

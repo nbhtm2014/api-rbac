@@ -21,6 +21,8 @@ class Role extends Model
 
     /**
      * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -32,6 +34,8 @@ class Role extends Model
     }
 
     /**
+     * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
@@ -39,6 +43,9 @@ class Role extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @return HasOne
+     */
     public function hasOneUser(): HasOne
     {
         $userModel = config('auth.providers.users.model');
@@ -46,11 +53,17 @@ class Role extends Model
         return $this->hasOne($userModel, 'role_id', 'id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function hasManyRoutes(): HasMany
     {
         return $this->hasMany(RoleRoute::class, 'role_id', 'id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function hasManyMenus(): HasMany
     {
         return $this->hasMany(RoleMenu::class, 'role_id', 'id');

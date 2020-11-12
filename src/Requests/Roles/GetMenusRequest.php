@@ -18,7 +18,8 @@ class GetMenusRequest extends BaseRequest
     public function rules()
     {
         return [
-            'role_id' => 'required|exists:roles,id',
+            //
+            'role_id'=> 'required|exists:roles,id',
         ];
     }
 }

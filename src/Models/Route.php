@@ -20,6 +20,8 @@ class Route extends Model
 
     /**
      * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -31,6 +33,8 @@ class Route extends Model
     }
 
     /**
+     * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
@@ -38,6 +42,9 @@ class Route extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @return HasMany
+     */
     public function hasManyRoleRoutes(): HasMany
     {
         return $this->hasMany(RoleRoute::class, 'route_id', 'id');
