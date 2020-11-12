@@ -31,9 +31,6 @@ class InstallCommand extends Command
      */
     protected $directory = '';
 
-    /**
-     * @return string
-     */
     public function getConnection(): string
     {
         return config('database.default');
@@ -46,15 +43,15 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        /**
+        /*
          * create requests.
          */
         $this->createRequests();
-        /**
+        /*
          * create controllers.
          */
         $this->createControllers();
-        /**
+        /*
          * create models.
          */
         $this->createModels();
@@ -89,9 +86,6 @@ class InstallCommand extends Command
         }
     }
 
-    /**
-     * @return void
-     */
     public function createControllers(): void
     {
         $files = [];
@@ -120,9 +114,6 @@ class InstallCommand extends Command
         }
     }
 
-    /**
-     * @return void
-     */
     public function createRequests(): void
     {
         $this->makeDir('Http/Requests');
@@ -163,7 +154,7 @@ class InstallCommand extends Command
     {
         $temp = scandir($directory);
         foreach ($temp as $k => $v) {
-            if ($v == '.' || $v == '..') {
+            if ('.' == $v || '..' == $v) {
                 continue;
             }
             $a = $directory.'/'.$v;
