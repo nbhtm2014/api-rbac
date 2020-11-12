@@ -18,8 +18,7 @@ class MenuStoreRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'pid'  => 'required',
+            'pid' => 'required',
             'name' => 'required',
             'path' => 'sometimes',
             'icon' => 'sometimes',

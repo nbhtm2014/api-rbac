@@ -19,7 +19,6 @@ use Szkj\Rbac\Requests\Roles\RoleUpdateRequest;
 
 class RolesController extends BaseController
 {
-    //
     public function index(Request $request)
     {
         $data = Role::query()->get()->toArray();
@@ -28,8 +27,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param RoleStoreRequest $request
-     *
      * @return mixed
      */
     public function store(RoleStoreRequest $request)
@@ -56,7 +53,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param RoleUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response
@@ -101,8 +97,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param DistributionRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function distributionMenus(DistributionRequest $request)
@@ -131,8 +125,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param DistributionRoutesRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request)
@@ -161,8 +153,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param CopyRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function copy(CopyRequest $request)
@@ -192,8 +182,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param GetRoutesRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function getRoutes(GetRoutesRequest $request)
@@ -201,7 +189,7 @@ class RolesController extends BaseController
         $data = $request->validated();
 
         $role_routes = RouteCatalog::query()
-            ->with(['hasManyRoutes'=> function ($query) use ($data) {
+            ->with(['hasManyRoutes' => function ($query) use ($data) {
                 $query->whereIn('id', function ($db) use ($data) {
                     $db->from('roles_routes')
                         ->select('route_id')
@@ -215,8 +203,6 @@ class RolesController extends BaseController
     }
 
     /**
-     * @param GetMenusRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function getMenus(GetMenusRequest $request)
@@ -226,7 +212,7 @@ class RolesController extends BaseController
         $pid = Menu::query()->whereIn('id', $menu_ids)->pluck('pid')->toArray();
         $menus = Menu::query()
             ->whereIn('id', $pid)
-            ->with(['children'=> function ($query) use ($menu_ids) {
+            ->with(['children' => function ($query) use ($menu_ids) {
                 $query->whereIn('id', $menu_ids);
             }])
             ->get()

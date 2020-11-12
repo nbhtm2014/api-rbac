@@ -18,8 +18,7 @@ class DistributionRoutesRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'id'        => 'required|exists:routes_catalogs,id',
+            'id' => 'required|exists:routes_catalogs,id',
             'route_ids' => 'sometimes|json',
         ];
     }
