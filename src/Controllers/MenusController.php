@@ -2,7 +2,6 @@
 
 namespace Szkj\Rbac\Controllers;
 
-use Dingo\Blueprint\Annotation\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Szkj\Rbac\Models\Menu;
