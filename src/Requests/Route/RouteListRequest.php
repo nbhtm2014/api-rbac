@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 14:17
+ * Created by 2020/10/29 14:17.
  **/
 
 namespace Szkj\Rbac\Requests\Route;
-
 
 use Szkj\Rbac\Requests\BaseRequest;
 
@@ -19,8 +18,8 @@ class RouteListRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name'=>'sometimes|string',
-            'pid' =>'required'
+            'name'=> 'sometimes|string',
+            'pid' => 'required',
         ];
     }
 }

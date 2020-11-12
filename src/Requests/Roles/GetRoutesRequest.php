@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 13:38
+ * Created by 2020/10/29 13:38.
  **/
 
 namespace Szkj\Rbac\Requests\Roles;
-
 
 use Szkj\Rbac\Requests\BaseRequest;
 
@@ -20,7 +19,7 @@ class GetRoutesRequest extends BaseRequest
     {
         return [
             //
-            'id'=>'required|exists:roles,id',
+            'id'=> 'required|exists:roles,id',
         ];
     }
 }

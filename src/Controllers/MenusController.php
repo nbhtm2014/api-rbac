@@ -2,7 +2,6 @@
 
 namespace Szkj\Rbac\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Szkj\Rbac\Models\Menu;
@@ -13,6 +12,7 @@ class MenusController extends BaseController
 {
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public function index(Request $request)
@@ -21,11 +21,13 @@ class MenusController extends BaseController
             ->where('pid', 0)
             ->with('children')
             ->get();
+
         return $this->success($data);
     }
 
     /**
      * @param MenuStoreRequest $request
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function store(MenuStoreRequest $request)
@@ -33,7 +35,6 @@ class MenusController extends BaseController
         $create = $request->validated();
 
         if (Menu::query()->create($create)) {
-
             Log::info('添加菜单');
 
             return $this->success();
@@ -44,6 +45,7 @@ class MenusController extends BaseController
 
     /**
      * @param $id
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
@@ -56,6 +58,7 @@ class MenusController extends BaseController
     /**
      * @param MenuUpdateRequest $request
      * @param $id
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function update(MenuUpdateRequest $request, $id)
@@ -71,8 +74,10 @@ class MenusController extends BaseController
 
     /**
      * @param $id
-     * @return \Dingo\Api\Http\Response
+     *
      * @throws \Exception
+     *
+     * @return \Dingo\Api\Http\Response
      */
     public function destroy($id)
     {
@@ -81,10 +86,13 @@ class MenusController extends BaseController
                 $menu->hasManyRoleMenus()->delete();
                 $menu->delete();
                 Log::info('删除菜单');
+
                 return $this->success();
             }
+
             return $this->error(422, '该菜单下有子菜单，请先删除子菜单');
         }
+
         return $this->error(422, '未找到该记录');
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 9:49
+ * Created by 2020/10/29 9:49.
  **/
 
 namespace Szkj\Rbac\Requests;
@@ -22,12 +22,13 @@ class BaseRequest extends FormRequest
         return true;
     }
 
-    public function failedValidation(Validator $validator){
-        throw new RbacBadRequestExceptions(200,$validator->errors()->first());
+    public function failedValidation(Validator $validator)
+    {
+        throw new RbacBadRequestExceptions(200, $validator->errors()->first());
     }
 
-
-    public function failedAuthorization(){
-        throw  new RbacBadRequestExceptions(200,'您没有权限');
+    public function failedAuthorization()
+    {
+        throw  new RbacBadRequestExceptions(200, '您没有权限');
     }
 }

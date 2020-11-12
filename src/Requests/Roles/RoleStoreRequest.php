@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 13:07
+ * Created by 2020/10/29 13:07.
  **/
 
 namespace Szkj\Rbac\Requests\Roles;
-
 
 use Szkj\Rbac\Requests\BaseRequest;
 
@@ -20,7 +19,7 @@ class RoleStoreRequest extends BaseRequest
     {
         return [
             //
-            'name'=>'required|unique:roles,name'
+            'name'=> 'required|unique:roles,name',
         ];
     }
 }

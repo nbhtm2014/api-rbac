@@ -2,7 +2,6 @@
 
 namespace Szkj\Rbac\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Szkj\Rbac\Models\Route;
@@ -15,8 +14,10 @@ use Szkj\Rbac\Transformers\BaseTransformer;
 class RoutesController extends BaseController
 {
     /**
-     * 刷新路由
+     * 刷新路由.
+     *
      * @param Request $request
+     *
      * @return mixed
      */
     public function renovateRoute()
@@ -28,26 +29,30 @@ class RoutesController extends BaseController
             $this->createRouteCatalog($route->uri, $uri);
         }
         Log::info('刷新路由');
+
         return $this->success();
     }
 
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public function index(Request $request)
     {
         $data = Route::query()
             ->when($name = $request->name, function ($query) use ($name) {
-                $query->where('path', 'like', '%' . $name . '%')->orWhere('name', 'like', '%' . $name . '%');
+                $query->where('path', 'like', '%'.$name.'%')->orWhere('name', 'like', '%'.$name.'%');
             })
             ->where('pid', 0)
             ->paginate(15);
-        return $this->response->paginator($data,new BaseTransformer());
+
+        return $this->response->paginator($data, new BaseTransformer());
     }
 
     /**
      * @param RouteListRequest $request
+     *
      * @return mixed
      */
     public function list(RouteListRequest $request)
@@ -55,16 +60,18 @@ class RoutesController extends BaseController
         $data = $request->validated();
         $route = Route::query()
             ->when(isset($data['name']), function ($query) use ($data) {
-                $query->where('path', 'like', '%' . $data['name'] . '%')->orWhere('name', 'like', '%' . $data['name'] . '%');
+                $query->where('path', 'like', '%'.$data['name'].'%')->orWhere('name', 'like', '%'.$data['name'].'%');
             })
             ->where('pid', $data['pid'])
             ->get()
             ->toArray();
+
         return $this->success($route);
     }
 
     /**
      * @param RouteStoreRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(RouteStoreRequest $request)
@@ -81,9 +88,10 @@ class RoutesController extends BaseController
     /**
      * @param RouteUpdateRequest $request
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(RouteUpdateRequest $request,$id)
+    public function update(RouteUpdateRequest $request, $id)
     {
         $data = $request->validated();
         $route = Route::query()->find($id);
@@ -92,14 +100,17 @@ class RoutesController extends BaseController
             $route->$k = $v;
         }
         $route->save();
-        Log::info('修改了 ' . $route->name . ' 路由');
+        Log::info('修改了 '.$route->name.' 路由');
+
         return $this->success();
     }
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
@@ -107,17 +118,19 @@ class RoutesController extends BaseController
             //同步删除 角色路由表里的 对应该路由的所有数据
             $routes->hasManyRoleRoutes()->delete();
 
-            Log::info('删除了 ' . $routes->path . $routes->name . ' 路由');
+            Log::info('删除了 '.$routes->path.$routes->name.' 路由');
 
             $routes->delete();
 
             return $this->success();
         }
+
         return $this->error(422, '该路由不存在');
     }
 
     /**
      * @param $route
+     *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
     protected function createRoute($route)
@@ -128,13 +141,16 @@ class RoutesController extends BaseController
                 $uri->save();
             }
         } else {
-            $uri = Route::query()->updateOrCreate(['path' => $route->uri],
+            $uri = Route::query()->updateOrCreate(
+                ['path' => $route->uri],
                 [
                     'path'    => $route->uri,
                     'methods' => $route->methods[0],
                     'name'    => $route->action['as'] ?? '',
-                ]);
+                ]
+            );
         }
+
         return $uri;
     }
 
@@ -142,10 +158,10 @@ class RoutesController extends BaseController
      * @param $path
      * @param $route
      */
-    protected function createRouteCatalog($path, $route):void
+    protected function createRouteCatalog($path, $route): void
     {
-        $path = trim($path, "/");
-        $path = explode("/", $path);
+        $path = trim($path, '/');
+        $path = explode('/', $path);
         if ($route_catalog = RouteCatalog::query()->where('name', $path[1])->first()) {
             $route->pid = $route_catalog->id;
             $route->save();

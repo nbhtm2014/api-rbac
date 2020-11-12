@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/28 15:30
+ * Created by 2020/10/28 15:30.
  **/
 
 namespace Szkj\Rbac\Models;
-
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Menu extends Model
 {
     /**
-     * table name
+     * table name.
+     *
      * @var string
      */
     protected $table = 'menus';
@@ -25,7 +25,7 @@ class Menu extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection =config('database.default');
+        $connection = config('database.default');
 
         $this->setConnection($connection);
 
@@ -39,6 +39,7 @@ class Menu extends Model
 
     /**
      * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)

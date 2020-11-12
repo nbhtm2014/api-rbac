@@ -1,22 +1,21 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 11:40
+ * Created by 2020/10/29 11:40.
  **/
 
 namespace Szkj\Rbac\Models;
-
 
 use Illuminate\Database\Eloquent\Model;
 
 class RoleMenu extends Model
 {
     /**
-     * table name
+     * table name.
+     *
      * @var string
      */
     protected $table = 'roles_menus';
-
 
     /**
      * Create a new Eloquent model instance.
@@ -25,7 +24,7 @@ class RoleMenu extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection =config('database.default');
+        $connection = config('database.default');
 
         $this->setConnection($connection);
 
@@ -34,6 +33,7 @@ class RoleMenu extends Model
 
     /**
      * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)

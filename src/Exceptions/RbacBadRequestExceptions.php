@@ -1,7 +1,7 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 9:50
+ * Created by 2020/10/29 9:50.
  **/
 
 namespace Szkj\Rbac\Exceptions;
