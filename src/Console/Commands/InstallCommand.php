@@ -61,7 +61,7 @@ class InstallCommand extends Command
          */
         $this->createModels();
 
-        $this->warn('Please modify the route namespace in config ！');
+        $this->warn('Please modify the route namespace in config !');
 
     }
 
