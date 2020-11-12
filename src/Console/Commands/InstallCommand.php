@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/11/10 15:31
+ * Created by 2020/11/10 15:31.
  **/
 
 namespace Szkj\Rbac\Console\Commands;
-
 
 use Illuminate\Console\Command;
 
@@ -32,7 +31,6 @@ class InstallCommand extends Command
      */
     protected $directory = '';
 
-
     /**
      * @return string
      */
@@ -49,27 +47,26 @@ class InstallCommand extends Command
     public function handle()
     {
         /**
-         * create requests
+         * create requests.
          */
         $this->createRequests();
         /**
-         * create controllers
+         * create controllers.
          */
         $this->createControllers();
         /**
-         * create models
+         * create models.
          */
         $this->createModels();
 
         $this->warn('Please modify the route namespace in config !');
-
     }
 
-    public function createModels() : void{
+    public function createModels(): void
+    {
         $files = [];
-        $this->listDir(__DIR__ . '/../../Stubs/Models', $files);
+        $this->listDir(__DIR__.'/../../Stubs/Models', $files);
         foreach ($files as $file) {
-
             $dir = basename(dirname($file));
 
             $this->makeDir($dir);
@@ -88,10 +85,9 @@ class InstallCommand extends Command
                     $stub_model
                 )
             );
-            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $model));
+            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $model));
         }
     }
-
 
     /**
      * @return void
@@ -99,9 +95,8 @@ class InstallCommand extends Command
     public function createControllers(): void
     {
         $files = [];
-        $this->listDir(__DIR__ . '/../../Stubs/Controllers', $files);
+        $this->listDir(__DIR__.'/../../Stubs/Controllers', $files);
         foreach ($files as $file) {
-
             $this->makeDir('Http/Controllers/Rbac');
 
             $filename = pathinfo($file, PATHINFO_FILENAME);
@@ -116,12 +111,12 @@ class InstallCommand extends Command
             $this->laravel['files']->put(
                 $controller,
                 str_replace(
-                    ['DummyNamespace','DummyUseNamespace'],
-                    ['App\\Http\\Controllers\\Rbac',$use_base_controller],
+                    ['DummyNamespace', 'DummyUseNamespace'],
+                    ['App\\Http\\Controllers\\Rbac', $use_base_controller],
                     $stub_controller
                 )
             );
-            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $controller));
+            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $controller));
         }
     }
 
@@ -132,12 +127,11 @@ class InstallCommand extends Command
     {
         $this->makeDir('Http/Requests');
         $files = [];
-        $this->listDir(__DIR__ . '/../../Stubs/Requests', $files);
+        $this->listDir(__DIR__.'/../../Stubs/Requests', $files);
         foreach ($files as $file) {
-
             $dir = basename(dirname($file));
 
-            $this->makeDir('Http/Requests/' . $dir);
+            $this->makeDir('Http/Requests/'.$dir);
 
             $filename = pathinfo($file, PATHINFO_FILENAME);
 
@@ -157,10 +151,9 @@ class InstallCommand extends Command
                     $stub_request
                 )
             );
-            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $request));
+            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $request));
         }
     }
-
 
     /**
      * @param $directory
@@ -173,7 +166,7 @@ class InstallCommand extends Command
             if ($v == '.' || $v == '..') {
                 continue;
             }
-            $a = $directory . '/' . $v;
+            $a = $directory.'/'.$v;
             if (is_dir($a)) {
                 $this->listDir($a, $file);
             } else {
@@ -191,7 +184,7 @@ class InstallCommand extends Command
      */
     protected function getStub($name)
     {
-        return $this->laravel['files']->get(__DIR__ . "/../../Stubs/$name.stub");
+        return $this->laravel['files']->get(__DIR__."/../../Stubs/$name.stub");
     }
 
     /**
@@ -201,6 +194,6 @@ class InstallCommand extends Command
      */
     protected function makeDir($path = '')
     {
-        $this->laravel['files']->makeDirectory(app_path() . '/' . $path, 0755, true, true);
+        $this->laravel['files']->makeDirectory(app_path().'/'.$path, 0755, true, true);
     }
 }

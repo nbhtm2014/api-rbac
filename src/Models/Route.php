@@ -1,24 +1,22 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 13:41
+ * Created by 2020/10/29 13:41.
  **/
 
 namespace Szkj\Rbac\Models;
-
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Route extends Model
 {
-
     /**
-     * table name
+     * table name.
+     *
      * @var string
      */
     protected $table = 'routes';
-
 
     /**
      * Create a new Eloquent model instance.
@@ -27,7 +25,7 @@ class Route extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection =config('database.default');
+        $connection = config('database.default');
 
         $this->setConnection($connection);
 
@@ -36,6 +34,7 @@ class Route extends Model
 
     /**
      * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
@@ -46,7 +45,8 @@ class Route extends Model
     /**
      * @return HasMany
      */
-    public function hasManyRoleRoutes() : HasMany{
-        return $this->hasMany(RoleRoute::class,'route_id','id');
+    public function hasManyRoleRoutes(): HasMany
+    {
+        return $this->hasMany(RoleRoute::class, 'route_id', 'id');
     }
 }

@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 9:56
+ * Created by 2020/10/29 9:56.
  **/
 
 namespace Szkj\Rbac\Requests\Menus;
-
 
 use Szkj\Rbac\Requests\BaseRequest;
 

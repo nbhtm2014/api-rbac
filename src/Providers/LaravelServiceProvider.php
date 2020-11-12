@@ -1,7 +1,7 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/28 11:28
+ * Created by 2020/10/28 11:28.
  **/
 
 namespace Szkj\Rbac\Providers;
@@ -34,6 +34,7 @@ class LaravelServiceProvider extends ServiceProvider
     protected $commands = [
         InstallCommand::class,
     ];
+
     /**
      * @return void
      */
@@ -52,15 +53,14 @@ class LaravelServiceProvider extends ServiceProvider
     }
 
     /**
-     * 资源发布
+     * 资源发布.
      */
     public function registerPublishing()
     {
-
     }
 
-    public function registerMiddleware(){
-
+    public function registerMiddleware()
+    {
         $router = $this->app->make('router');
 
         // register route middleware.
@@ -72,22 +72,21 @@ class LaravelServiceProvider extends ServiceProvider
         foreach ($this->middlewareGroups as $key => $middleware) {
             $router->middlewareGroup($key, $middleware);
         }
-
     }
 
     /**
-     * 表迁移
+     * 表迁移.
      */
     public function registerMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
     }
 
     /**
-     * 注册路由
+     * 注册路由.
      */
     public function registerRoutes()
     {
-        $this->loadRoutesFrom(__DIR__ . '/../routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes.php');
     }
 }

@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 11:21
+ * Created by 2020/10/29 11:21.
  **/
 
 namespace Szkj\Rbac\Models;
-
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,11 +13,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Role extends Model
 {
     /**
-     * table name
+     * table name.
+     *
      * @var string
      */
     protected $table = 'roles';
-
 
     /**
      * Create a new Eloquent model instance.
@@ -27,16 +26,16 @@ class Role extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection =config('database.default');
+        $connection = config('database.default');
 
         $this->setConnection($connection);
 
         parent::__construct($attributes);
     }
 
-
     /**
      * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
@@ -47,24 +46,26 @@ class Role extends Model
     /**
      * @return HasOne
      */
-    public function hasOneUser() : HasOne{
+    public function hasOneUser(): HasOne
+    {
+        $userModel = config('auth.providers.users.model');
 
-        $userModel  = config('auth.providers.users.model');
-
-        return $this->hasOne($userModel,'role_id','id');
+        return $this->hasOne($userModel, 'role_id', 'id');
     }
 
     /**
      * @return HasMany
      */
-    public function hasManyRoutes() : HasMany{
-        return $this->hasMany(RoleRoute::class,'role_id','id');
+    public function hasManyRoutes(): HasMany
+    {
+        return $this->hasMany(RoleRoute::class, 'role_id', 'id');
     }
 
     /**
      * @return HasMany
      */
-    public function hasManyMenus():HasMany{
-        return $this->hasMany(RoleMenu::class,'role_id','id');
+    public function hasManyMenus(): HasMany
+    {
+        return $this->hasMany(RoleMenu::class, 'role_id', 'id');
     }
 }

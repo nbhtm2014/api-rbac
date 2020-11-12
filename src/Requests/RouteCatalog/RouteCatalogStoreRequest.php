@@ -1,11 +1,10 @@
 <?php
 /**
  * Creator htm
- * Created by 2020/10/29 13:50
+ * Created by 2020/10/29 13:50.
  **/
 
 namespace Szkj\Rbac\Requests\RouteCatalog;
-
 
 use Szkj\Rbac\Requests\BaseRequest;
 
@@ -20,7 +19,7 @@ class RouteCatalogStoreRequest extends BaseRequest
     {
         return [
             //
-            'name'=>'required|unique:routes_catalogs'
+            'name'=> 'required|unique:routes_catalogs',
         ];
     }
 }
