@@ -18,7 +18,7 @@ class RouteListRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name'=> 'sometimes|string',
+            'name' => 'sometimes|string',
             'pid' => 'required',
         ];
     }

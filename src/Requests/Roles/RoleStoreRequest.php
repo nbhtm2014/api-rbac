@@ -18,8 +18,7 @@ class RoleStoreRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'name'=> 'required|unique:roles,name',
+            'name' => 'required|unique:roles,name',
         ];
     }
 }
