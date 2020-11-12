@@ -19,9 +19,8 @@ class RoleUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'id'  => 'required|exists:roles,id',
-            'name'=> ['required', Rule::unique('roles')->ignore($this->id)],
+            'id' => 'required|exists:roles,id',
+            'name' => ['required', Rule::unique('roles')->ignore($this->id)],
         ];
     }
 }

@@ -19,11 +19,11 @@ class RouteUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'id'      => 'required|exists:routes,id',
-            'path'    => 'required',
-            'name'    => 'required',
+            'id' => 'required|exists:routes,id',
+            'path' => 'required',
+            'name' => 'required',
             'default' => 'required',
-            'pid'     => 'required',
+            'pid' => 'required',
             'methods' => ['required', Rule::in(['POST', 'DELETE', 'GET', 'PUT'])],
         ];
     }
