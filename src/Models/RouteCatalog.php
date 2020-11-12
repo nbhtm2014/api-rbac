@@ -19,6 +19,8 @@ class RouteCatalog extends Model
 
     /**
      * Create a new Eloquent model instance.
+     *
+     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -30,6 +32,8 @@ class RouteCatalog extends Model
     }
 
     /**
+     * @param \DateTimeInterface $date
+     *
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)

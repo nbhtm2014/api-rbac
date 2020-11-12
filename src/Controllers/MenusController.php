@@ -11,6 +11,8 @@ use Szkj\Rbac\Requests\Menus\MenuUpdateRequest;
 class MenusController extends BaseController
 {
     /**
+     * @param Request $request
+     *
      * @return mixed
      */
     public function index(Request $request)
@@ -24,6 +26,8 @@ class MenusController extends BaseController
     }
 
     /**
+     * @param MenuStoreRequest $request
+     *
      * @return \Dingo\Api\Http\Response
      */
     public function store(MenuStoreRequest $request)
@@ -52,6 +56,7 @@ class MenusController extends BaseController
     }
 
     /**
+     * @param MenuUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response

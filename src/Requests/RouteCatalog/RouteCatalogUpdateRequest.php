@@ -18,8 +18,8 @@ class RouteCatalogUpdateRequest extends BaseRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:routes_catalogs,id',
-            'name' => 'sometimes|string',
+            'id'  => 'required|exists:routes_catalogs,id',
+            'name'=> 'sometimes|string',
         ];
     }
 }

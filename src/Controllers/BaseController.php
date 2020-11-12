@@ -15,14 +15,16 @@ class BaseController extends Controller
     use Helpers;
 
     /**
-     * @param null $data
+     * @param null   $data
+     * @param string $message
+     * @param int    $code
      *
      * @return Response
      */
     public function success($data = null, string $message = '操作成功', int $code = 200)
     {
         $success = [
-            'code' => $code,
+            'code'    => $code,
             'message' => $message,
         ];
         if (!empty($data)) {
@@ -33,14 +35,16 @@ class BaseController extends Controller
     }
 
     /**
-     * @param mixed ...$array
+     * @param int    $code
+     * @param string $message
+     * @param mixed  ...$array
      *
      * @return Response
      */
     public function error(int $code, string $message = '操作失败', ...$array)
     {
         $error = [
-            'code' => $code,
+            'code'    => $code,
             'message' => $message,
         ];
         if (!empty($array)) {

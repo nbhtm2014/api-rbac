@@ -10,16 +10,27 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRbacTable extends Migration
 {
+    /**
+     * @return string
+     */
     public function getConnection(): string
     {
         return config('database.default');
     }
 
+    /**
+     * @return string
+     */
     public function getPrefix(): string
     {
         return config('database.connections.'.$this->getConnection().'.prefix');
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
     public function tableName(string $name): string
     {
         return $name;

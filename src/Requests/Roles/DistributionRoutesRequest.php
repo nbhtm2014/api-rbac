@@ -18,7 +18,7 @@ class DistributionRoutesRequest extends BaseRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:roles,id',
+            'id'        => 'required|exists:roles,id',
             'route_ids' => 'required|json',
         ];
     }
