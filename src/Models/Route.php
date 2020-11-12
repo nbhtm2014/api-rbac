@@ -19,6 +19,11 @@ class Route extends Model
     protected $table = 'routes';
 
     /**
+     * @var array
+     */
+    protected $guarded =[];
+
+    /**
      * Create a new Eloquent model instance.
      */
     public function __construct(array $attributes = [])

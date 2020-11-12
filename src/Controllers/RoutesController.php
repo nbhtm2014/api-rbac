@@ -25,8 +25,7 @@ class RoutesController extends BaseController
         set_time_limit(0);
         $routes = app()->routes->getRoutes();
         foreach ($routes as $key => $route) {
-            $uri = $this->createRoute($route);
-            $this->createRouteCatalog($route->uri, $uri);
+            $this->hasRoute($route);
         }
         Log::info('刷新路由');
 
@@ -127,6 +126,15 @@ class RoutesController extends BaseController
 
     /**
      * @param $route
+     */
+    protected function hasRoute($route){
+        if ($route->action['namespace'] == config('szkj.route.namespace')){
+            $uri = $this->createRoute($route);
+            $this->createRouteCatalog($route->uri, $uri);
+        }
+    }
+    /**
+     * @param $route
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
@@ -142,7 +150,7 @@ class RoutesController extends BaseController
                 ['path' => $route->uri],
                 [
                     'path' => $route->uri,
-                    'methods' => $route->methods[0],
+                    'methods' => implode(',',$route->methods),
                     'name' => $route->action['as'] ?? '',
                 ]
             );
@@ -159,11 +167,11 @@ class RoutesController extends BaseController
     {
         $path = trim($path, '/');
         $path = explode('/', $path);
-        if ($route_catalog = RouteCatalog::query()->where('name', $path[1])->first()) {
+        if ($route_catalog = RouteCatalog::query()->where('name', $path[config('szkj.route.route_level')])->first()) {
             $route->pid = $route_catalog->id;
             $route->save();
         } else {
-            $route_catalog = RouteCatalog::query()->create(['name' => $path[1]]);
+            $route_catalog = RouteCatalog::query()->create(['name' => $path[config('szkj.route.route_level')]]);
             $route->pid = $route_catalog->id;
             $route->save();
         }

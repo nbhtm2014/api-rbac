@@ -18,6 +18,11 @@ class RouteCatalog extends Model
     protected $table = 'routes_catalogs';
 
     /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Create a new Eloquent model instance.
      */
     public function __construct(array $attributes = [])

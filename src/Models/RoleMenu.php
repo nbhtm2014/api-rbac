@@ -18,6 +18,11 @@ class RoleMenu extends Model
     protected $table = 'roles_menus';
 
     /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
      * Create a new Eloquent model instance.
      */
     public function __construct(array $attributes = [])

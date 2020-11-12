@@ -2,7 +2,6 @@
 
 namespace DummyNamespace;
 
-use Dingo\Blueprint\Annotation\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Menu;
@@ -10,9 +9,7 @@ use App\Http\Requests\Menus\MenuStoreRequest;
 use App\Http\Requests\Menus\MenuUpdateRequest;
 DummyUseNamespace;
 
-/**
- * @Resource('Menus')
- */
+
 class MenusController extends BaseController
 {
     /**
