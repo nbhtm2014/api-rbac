@@ -19,11 +19,10 @@ class RouteStoreRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'path'    => 'required',
-            'name'    => 'required',
+            'path' => 'required',
+            'name' => 'required',
             'default' => 'required',
-            'pid'     => 'required',
+            'pid' => 'required',
             'methods' => ['required', Rule::in(['POST', 'DELETE', 'GET', 'PUT'])],
         ];
     }

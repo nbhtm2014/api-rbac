@@ -18,9 +18,8 @@ class CopyRequest extends BaseRequest
     public function rules()
     {
         return [
-            //
-            'id'  => 'required|exists:roles,id',
-            'name'=> 'required|unique:roles,name',
+            'id' => 'required|exists:roles,id',
+            'name' => 'required|unique:roles,name',
         ];
     }
 }

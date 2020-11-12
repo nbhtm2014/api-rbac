@@ -19,7 +19,7 @@ class MenuUpdateRequest extends BaseRequest
     {
         return [
             'name' => 'required',
-            'pid'  => 'required',
+            'pid' => 'required',
             'path' => 'sometimes',
             'icon' => 'sometimes',
         ];

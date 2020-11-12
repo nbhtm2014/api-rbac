@@ -34,8 +34,6 @@ class RoutesController extends BaseController
     }
 
     /**
-     * @param Request $request
-     *
      * @return mixed
      */
     public function index(Request $request)
@@ -51,8 +49,6 @@ class RoutesController extends BaseController
     }
 
     /**
-     * @param RouteListRequest $request
-     *
      * @return mixed
      */
     public function list(RouteListRequest $request)
@@ -70,8 +66,6 @@ class RoutesController extends BaseController
     }
 
     /**
-     * @param RouteStoreRequest $request
-     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(RouteStoreRequest $request)
@@ -86,7 +80,6 @@ class RoutesController extends BaseController
     }
 
     /**
-     * @param RouteUpdateRequest $request
      * @param $id
      *
      * @return \Illuminate\Http\JsonResponse
@@ -144,9 +137,9 @@ class RoutesController extends BaseController
             $uri = Route::query()->updateOrCreate(
                 ['path' => $route->uri],
                 [
-                    'path'    => $route->uri,
+                    'path' => $route->uri,
                     'methods' => $route->methods[0],
-                    'name'    => $route->action['as'] ?? '',
+                    'name' => $route->action['as'] ?? '',
                 ]
             );
         }

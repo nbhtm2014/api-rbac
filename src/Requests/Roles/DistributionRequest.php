@@ -18,7 +18,7 @@ class DistributionRequest extends BaseRequest
     public function rules()
     {
         return [
-            'id'       => 'required|exists:roles,id',
+            'id' => 'required|exists:roles,id',
             'menu_ids' => 'required|json',
         ];
     }

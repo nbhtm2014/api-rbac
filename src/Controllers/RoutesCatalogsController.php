@@ -22,8 +22,6 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
-     * @param RouteCatalogStoreRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function store(RouteCatalogStoreRequest $request)
@@ -36,7 +34,6 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
-     * @param RouteCatalogUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response
@@ -45,7 +42,7 @@ class RoutesCatalogsController extends BaseController
     {
         $data = $request->validated();
 
-        RouteCatalog::query()->updateOrCreate(['id'=>$id], $data);
+        RouteCatalog::query()->updateOrCreate(['id' => $id], $data);
 
         return $this->success();
     }
@@ -71,7 +68,7 @@ class RoutesCatalogsController extends BaseController
     {
         RouteCatalog::query()->where('id', $id)->delete();
 
-        Route::query()->where('pid', $id)->update(['pid'=>0]);
+        Route::query()->where('pid', $id)->update(['pid' => 0]);
 
         Log::info('删除了路由分组');
 
@@ -79,8 +76,6 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
-     * @param DistributionRoutesRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function distributionRoutes(DistributionRoutesRequest $request)
@@ -88,7 +83,7 @@ class RoutesCatalogsController extends BaseController
         $route_ids = json_decode($request->route_ids, true);
         $id = $request->id;
         if (is_array($route_ids)) {
-            if (Route::query()->whereIn('id', $route_ids)->update(['pid'=>$id])) {
+            if (Route::query()->whereIn('id', $route_ids)->update(['pid' => $id])) {
                 Log::info('分配路由分组成功');
 
                 return $this->success();
@@ -101,8 +96,6 @@ class RoutesCatalogsController extends BaseController
     }
 
     /**
-     * @param DistributionRoutesRequest $request
-     *
      * @return \Dingo\Api\Http\Response
      */
     public function remove(DistributionRoutesRequest $request)
@@ -111,7 +104,7 @@ class RoutesCatalogsController extends BaseController
         if (isset($data['route_ids'])) {
             $route_ids = json_decode($data['route_ids'], true);
             if (is_array($route_ids)) {
-                Route::query()->whereIn('id', $route_ids)->where('pid', $data['id'])->update(['pid'=>0]);
+                Route::query()->whereIn('id', $route_ids)->where('pid', $data['id'])->update(['pid' => 0]);
                 Log::info('移除了路由分组', $route_ids);
             }
         }
