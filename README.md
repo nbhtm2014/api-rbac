@@ -1,5 +1,7 @@
 <h1 align="center"> rbac </h1>
 
+![StyleCI build status](https://github.styleci.io/repos/307898344/shield) 
+
 <p align="center"> 
 0.1.0
 </p>
