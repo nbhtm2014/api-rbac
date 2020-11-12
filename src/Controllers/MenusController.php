@@ -2,15 +2,20 @@
 
 namespace Szkj\Rbac\Controllers;
 
+use Dingo\Blueprint\Annotation\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Szkj\Rbac\Models\Menu;
 use Szkj\Rbac\Requests\Menus\MenuStoreRequest;
 use Szkj\Rbac\Requests\Menus\MenuUpdateRequest;
 
+/**
+ * @Resource('Menus')
+ */
 class MenusController extends BaseController
 {
     /**
+     * @param Request $request
      * @return mixed
      */
     public function index(Request $request)
@@ -24,6 +29,7 @@ class MenusController extends BaseController
     }
 
     /**
+     * @param MenuStoreRequest $request
      * @return \Dingo\Api\Http\Response
      */
     public function store(MenuStoreRequest $request)
@@ -52,6 +58,7 @@ class MenusController extends BaseController
     }
 
     /**
+     * @param MenuUpdateRequest $request
      * @param $id
      *
      * @return \Dingo\Api\Http\Response

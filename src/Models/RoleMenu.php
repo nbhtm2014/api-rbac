@@ -30,6 +30,7 @@ class RoleMenu extends Model
     }
 
     /**
+     * @param \DateTimeInterface $date
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)

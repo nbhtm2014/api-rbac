@@ -2,6 +2,9 @@
 
 ![StyleCI build status](https://github.styleci.io/repos/307898344/shield) 
 [![Build Status](https://travis-ci.org/nbhtm2014/api-rbac.svg?branch=master)](https://travis-ci.org/nbhtm2014/api-rbac)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
+
 <p align="center"> 
 0.1.0
 </p>
