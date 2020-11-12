@@ -36,7 +36,6 @@ class Menu extends Model
     protected $fillable = ['name', 'path', 'icon', 'pid'];
 
     /**
-     * @param \DateTimeInterface $date
      * @return string
      */
     protected function serializeDate(\DateTimeInterface $date)
