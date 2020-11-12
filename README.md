@@ -1,7 +1,7 @@
 <h1 align="center"> rbac </h1>
 
 ![StyleCI build status](https://github.styleci.io/repos/307898344/shield) 
-
+[![Build Status](https://travis-ci.org/nbhtm2014/api-rbac.svg?branch=master)](https://travis-ci.org/nbhtm2014/api-rbac)
 <p align="center"> 
 0.1.0
 </p>
