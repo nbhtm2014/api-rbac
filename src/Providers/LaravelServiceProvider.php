@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use Szkj\Rbac\Console\Commands\InstallCommand;
 use Szkj\Rbac\Middleware\ControlOfAuthority;
 
-class RbacServiceProvider extends ServiceProvider
+class LaravelServiceProvider extends ServiceProvider
 {
     /**
      * @var array
@@ -40,12 +40,14 @@ class RbacServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerMigrations();
-        $this->registerRoutes();
+
         $this->registerMiddleware();
     }
 
     public function register()
     {
+        $this->registerRoutes();
+
         $this->commands($this->commands);
     }
 

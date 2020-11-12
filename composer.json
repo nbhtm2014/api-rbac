@@ -17,5 +17,12 @@
         "psr-4": {
             "Szkj\\Rbac\\": "./src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Szkj\\Rbac\\Providers\\LaravelServiceProvider"
+            ]
+        }
     }
 }
