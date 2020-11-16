@@ -10,7 +10,7 @@ use App\Models\RouteCatalog;
 use App\Http\Requests\Route\RouteListRequest;
 use App\Http\Requests\Route\RouteStoreRequest;
 use App\Http\Requests\Route\RouteUpdateRequest;
-use App\Http\Transformers\BaseTransformer;
+DummyUseTransformerNamespace;
 DummyUseNamespace;
 
 class RoutesController extends BaseController
