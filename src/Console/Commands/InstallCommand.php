@@ -50,7 +50,7 @@ class InstallCommand extends Command
         /*
          * create controllers.
          */
-        $this->createControllers();
+        $this->createRbacControllers();
         /*
          * create models.
          */
@@ -86,10 +86,10 @@ class InstallCommand extends Command
         }
     }
 
-    public function createControllers(): void
+    public function createRbacControllers(): void
     {
         $files = [];
-        $this->listDir(__DIR__.'/../../Stubs/Controllers', $files);
+        $this->listDir(__DIR__.'/../../Stubs/Controllers/Rbac', $files);
         foreach ($files as $file) {
             $this->makeDir('Http/Controllers/Rbac');
 
