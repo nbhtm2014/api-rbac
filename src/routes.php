@@ -7,7 +7,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version(config('api.version'), [
     'middleware' => config('szkj.route.middleware')
 ], function ($api) {
-    $api->group(['prefix' => 'rbac', 'namespace'  => config('szkj.route.namespace.rbac').'/Rbac'], function ($api) {
+    $api->group(['prefix' => 'rbac', 'namespace'  => config('szkj.route.namespace.rbac').'\\Rbac'], function ($api) {
         /*
          * 菜单.
          */
@@ -42,7 +42,7 @@ $api->version(config('api.version'), [
         });
     });
 
-    $api->group(['prefix' => 'user','namespace'  => config('szkj.route.namespace.rbac').'/User'], function ($api) {
+    $api->group(['prefix' => 'user','namespace'  => config('szkj.route.namespace.rbac').'\\User'], function ($api) {
         $api->resource('user', 'UserController');
     });
 });
