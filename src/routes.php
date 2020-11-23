@@ -5,10 +5,9 @@
  **/
 $api = app('Dingo\Api\Routing\Router');
 $api->version(config('api.version'), [
-    'middleware' => config('szkj.route.middleware'),
-    'namespace' => config('szkj.route.namespace'),
+    'middleware' => config('szkj.route.middleware')
 ], function ($api) {
-    $api->group(['prefix' => 'rbac'], function ($api) {
+    $api->group(['prefix' => 'rbac', 'namespace'  => config('szkj.route.namespace').'/Rbac'], function ($api) {
         /*
          * 菜单.
          */
@@ -17,7 +16,7 @@ $api->version(config('api.version'), [
          * 角色.
          */
         $api->resource('roles', 'RolesController');
-        $api->group(['prefix'=>'roles'],function ($api){
+        $api->group(['prefix' => 'roles'], function ($api) {
             $api->post('distribution-menus', 'RolesController@distributionMenus');
             $api->post('distribution-routes', 'RolesController@distributionRoutes');
             $api->post('copy', 'RolesController@copy');
@@ -29,7 +28,7 @@ $api->version(config('api.version'), [
          * 路由.
          */
         $api->resource('routes', 'RoutesController');
-        $api->group(['prefix'=>'routes'],function ($api){
+        $api->group(['prefix' => 'routes'], function ($api) {
             $api->post('renovateRoute', 'RoutesController@renovateRoute');
             $api->post('list', 'RoutesController@list');
         });
@@ -37,9 +36,13 @@ $api->version(config('api.version'), [
          * 路由组.
          */
         $api->resource('routes_catalogs', 'RoutesCatalogsController');
-        $api->group(['prefix'=>'routes_catalogs'],function ($api){
+        $api->group(['prefix' => 'routes_catalogs'], function ($api) {
             $api->post('distribution-routes', 'RoutesCatalogsController@distributionRoutes');
             $api->post('remove', 'RoutesCatalogsController@remove');
         });
+    });
+
+    $api->group(['prefix' => 'user','namespace'  => config('szkj.route.namespace').'/User'], function ($api) {
+        $api->resource('user', 'UserController');
     });
 });

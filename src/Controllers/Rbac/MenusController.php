@@ -1,9 +1,10 @@
 <?php
 
-namespace Szkj\Rbac\Controllers;
+namespace Szkj\Rbac\Controllers\Rbac;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Szkj\Rbac\Controllers\BaseController;
 use Szkj\Rbac\Models\Menu;
 use Szkj\Rbac\Requests\Menus\MenuStoreRequest;
 use Szkj\Rbac\Requests\Menus\MenuUpdateRequest;

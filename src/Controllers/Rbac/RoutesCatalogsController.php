@@ -1,8 +1,9 @@
 <?php
 
-namespace Szkj\Rbac\Controllers;
+namespace Szkj\Rbac\Controllers\Rbac;
 
 use Illuminate\Support\Facades\Log;
+use Szkj\Rbac\Controllers\BaseController;
 use Szkj\Rbac\Models\Route;
 use Szkj\Rbac\Models\RouteCatalog;
 use Szkj\Rbac\Requests\RouteCatalog\DistributionRoutesRequest;

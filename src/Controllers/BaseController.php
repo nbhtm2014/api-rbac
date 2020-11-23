@@ -16,10 +16,11 @@ class BaseController extends Controller
 
     /**
      * @param null $data
-     *
+     * @param string $message
+     * @param int $code
      * @return Response
      */
-    public function success($data = null, string $message = '操作成功', int $code = 200)
+    public function success($data = null, string $message = '操作成功', int $code = 200): Response
     {
         $success = [
             'code' => $code,
@@ -33,11 +34,12 @@ class BaseController extends Controller
     }
 
     /**
+     * @param int $code
+     * @param string $message
      * @param mixed ...$array
-     *
      * @return Response
      */
-    public function error(int $code, string $message = '操作失败', ...$array)
+    public function error(int $code, string $message = '操作失败', ...$array): Response
     {
         $error = [
             'code' => $code,

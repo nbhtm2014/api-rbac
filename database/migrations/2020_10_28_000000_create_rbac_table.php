@@ -115,6 +115,16 @@ class CreateRbacTable extends Migration
             if (!Schema::hasColumn('users', 'phone')) {
                 $table->tinyInteger('superadmin')->default(0);
             }
+            // 'province' 'city' 'district'
+            if (!Schema::hasColumn('users', 'province')) {
+                $table->string('province', 100)->nullable();
+            }
+            if (!Schema::hasColumn('users', 'city')) {
+                $table->string('city', 100)->nullable();
+            }
+            if (!Schema::hasColumn('users', 'district')) {
+                $table->string('district', 100)->nullable();
+            }
         });
     }
 

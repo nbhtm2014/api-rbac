@@ -165,7 +165,7 @@ class InstallCommand extends Command
             if (is_dir($a)) {
                 $this->listDir($a, $file);
             } else {
-                array_push($file, $a);
+                $file[] = $a;
             }
         }
     }
