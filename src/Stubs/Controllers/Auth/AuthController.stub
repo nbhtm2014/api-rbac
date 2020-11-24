@@ -7,14 +7,15 @@
 namespace DummyNamespace;
 
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\Route;
 use App\Models\User;
 use App\Http\Requests\Auths\LoginRequest;
+use App\Http\Requests\Auths\RestPasswordRequests;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use \Dingo\Api\Http\Response;
 DummyUseNamespace;
-
 class AuthController extends BaseController
 {
     /**
@@ -57,4 +58,26 @@ class AuthController extends BaseController
 
         return $this->success();
     }
+
+     /**
+         * @param RestPasswordRequests $request
+         * @return Response
+         */
+        public function restPassword(RestPasswordRequests $request): Response
+        {
+
+            $data = $request->validated();
+            /**
+             * @var User $user
+             */
+            $user = User::query()->find(auth()->user()->id);
+
+            $user->password = Hash::make($data['password']);
+
+            $user->save();
+
+            Log::info('修改密码');
+
+            return $this->success();
+        }
 }

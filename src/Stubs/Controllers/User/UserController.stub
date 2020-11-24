@@ -6,24 +6,53 @@
 
 namespace DummyNamespace;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 DummyUseNamespace;
+use App\Models\Menu;
+use App\Models\Role;
+use App\Models\RoleMenu;
 use App\Models\User;
+use App\Http\Requests\Users\UserIndexRequests;
 use App\Http\Requests\Users\UserStoreRequests;
+use App\Http\Requests\Users\UserUpdateRequests;
+DummyUseTransformerNamespace;
+use Dingo\Api\Http\Response;
 
 class UserController extends BaseController
 {
 
-    public function index(Request $request){
-
+    /**
+     * @param UserIndexRequests $request
+     * @return Response
+     */
+    public function index(UserIndexRequests $request): Response
+    {
+        $name = $request->input('name', null);
+        $role_id = $request->input('role_id', null);
+        $data = User::query()
+            ->when(auth()->user()->superadmin, function ($query) {
+                $query->withTrashed();
+            })
+            ->where('superadmin', 0)
+            ->with('hasOneRole', 'hasOneUnit')
+            ->when($name, function ($query) use ($name) {
+                $query->where(function ($db) use ($name) {
+                    $db->where('name', 'like', '%' . $name . '%')->orWhere('phone', 'like', '%' . $name . '%');
+                });
+            })
+            ->when($role_id, function ($query) use ($role_id) {
+                $query->where('role_id', $role_id);
+            })
+            ->paginate($this->per);
+        return $this->response->paginator($data, new BaseTransformer());
     }
 
     /**
      * @param UserStoreRequests $request
      * @return mixed
      */
-    public function store(UserStoreRequests $request)
+    public function store(UserStoreRequests $request): Response
     {
 
         $data = $request->validated();
@@ -33,5 +62,86 @@ class UserController extends BaseController
         $user = User::query()->create($data);
 
         return $this->success('创建成功', $user);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function show($id): Response
+    {
+        $data = User::query()->find($id);
+
+        $data['role_name'] = auth()->user()->superadmin ? '超级管理员' : Role::query()->where('id', $data['role_id'])->first()->name;
+
+        $data['menus'] = $this->getMenus($data);
+
+        return $this->success($data);
+    }
+
+    /**
+     * @param UserUpdateRequests $request
+     * @param $id
+     * @return Response
+     */
+    public function update(UserUpdateRequests $request, $id): Response
+    {
+        $data = $request->validated();
+        /**
+         * @var User $user
+         */
+        $user = User::query()->find($id);
+        $user->phone = $data['phone'];
+        $user->name = $data['name'];
+        $user->role_id = $data['role_id'];
+        if (isset($data['email'])) $user->email = $data['email'];
+        if (isset($data['password'])) $user->password = Hash::make($data['password']);
+        $user->save();
+        Log::info('修改了用户信息');
+        return $this->success();
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     */
+    public function destroy($id): Response
+    {
+        $user = User::withTrashed()->find($id);
+        if ($user->trashed()) {
+            return $this->error(422, '该用户已经删除');
+        }
+        if ($user->superadmin) {
+            return $this->error(422, '不能删除超级管理');
+        }
+        $user->delete();
+        Log::info('删除了用户');
+        return $this->success();
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    private function getMenus($user): array
+    {
+
+        if ($user->superadmin) {
+
+            return Menu::query()->where('pid', 0)->with('children')->get();
+
+        }
+        //根据角色获取 对应菜单的ID
+        $menu_ids = RoleMenu::query()->where('role_id', $user->role_id)->pluck('menu_id')->toArray();
+        $pid = Menu::query()->whereIn('id', $menu_ids)->pluck('pid')->toArray();
+        return Menu::query()
+            ->whereIn('id', $pid)
+            ->with([
+                'children' => function ($query) use ($menu_ids) {
+                    $query->whereIn('id', $menu_ids);
+                },
+            ])
+            ->get()
+            ->toArray();
     }
 }

@@ -170,11 +170,16 @@ class InstallCommand extends Command
             $use_base_controller = file_exists(app_path('Http/Controllers/BaseController.php'))
                 ? 'use App\\Http\\Controllers\\BaseController'
                 : 'use Szkj\\Rbac\\Controllers\\BaseController';
+
+            $use_transformer = file_exists(app_path('Http/Transformers/BaseTransformer.php'))
+                ? 'use App\\Http\\Transformers\\BaseTransformer'
+                : 'use Szkj\\Rbac\\Transformers\\BaseTransformer';
+
             $this->laravel['files']->put(
                 $controller,
                 str_replace(
-                    ['DummyNamespace', 'DummyUseNamespace'],
-                    ['App\\Http\\Controllers\\User', $use_base_controller],
+                    ['DummyNamespace', 'DummyUseNamespace','DummyUseTransformerNamespace'],
+                    ['App\\Http\\Controllers\\User', $use_base_controller,$use_transformer],
                     $stub_controller
                 )
             );

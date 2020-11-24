@@ -7,11 +7,13 @@
 namespace Szkj\Rbac\Controllers\Auth;
 
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Szkj\Rbac\Controllers\BaseController;
 use Szkj\Rbac\Models\Route;
 use Szkj\Rbac\Models\User;
 use Szkj\Rbac\Requests\Auths\LoginRequest;
+use Szkj\Rbac\Requests\Auths\RestPasswordRequests;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use \Dingo\Api\Http\Response;
 class AuthController extends BaseController
@@ -53,6 +55,29 @@ class AuthController extends BaseController
         auth()->guard('api')->logout();
 
         JWTAuth::invalidate(JWTAuth::getToken());
+
+        return $this->success();
+    }
+
+
+    /**
+     * @param RestPasswordRequests $request
+     * @return Response
+     */
+    public function restPassword(RestPasswordRequests $request): Response
+    {
+
+        $data = $request->validated();
+        /**
+         * @var User $user
+         */
+        $user = User::query()->find(auth()->user()->id);
+
+        $user->password = Hash::make($data['password']);
+
+        $user->save();
+
+        Log::info('修改密码');
 
         return $this->success();
     }
