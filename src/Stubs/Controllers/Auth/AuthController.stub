@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Http\Requests\Auths\LoginRequest;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use \Dingo\Api\Http\Response;
-DummyUseNamespace
+DummyUseNamespace;
 
 class AuthController extends BaseController
 {
@@ -51,7 +51,7 @@ class AuthController extends BaseController
     {
         Log::info('用户登出');
         //token加入黑名单
-        $this->guard('api')->logout();
+        auth()->guard('api')->logout();
 
         JWTAuth::invalidate(JWTAuth::getToken());
 

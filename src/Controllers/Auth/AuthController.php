@@ -50,7 +50,7 @@ class AuthController extends BaseController
     {
         Log::info('用户登出');
         //token加入黑名单
-        $this->guard('api')->logout();
+        auth()->guard('api')->logout();
 
         JWTAuth::invalidate(JWTAuth::getToken());
 
