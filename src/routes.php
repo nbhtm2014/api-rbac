@@ -11,6 +11,7 @@ $api->version(config('api.version'), function ($api) {
 
         $api->group(['middleware' => config('szkj.route.middleware')], function ($api) {
             $api->post('logout', 'AuthController@logout');
+            $api->post('rest_password', 'AuthController@restPassword');
         });
 
     });
