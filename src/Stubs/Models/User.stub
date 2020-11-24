@@ -1,6 +1,6 @@
 <?php
 
-namespace Szkj\Rbac\Models;
+namespace DummyNamespace;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

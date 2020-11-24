@@ -4,13 +4,13 @@
  * Created by 2020/11/23 10:53
  **/
 
-namespace Szkj\Rbac\Controllers\User;
+namespace DummyNamespace;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Szkj\Rbac\Controllers\BaseController;
-use Szkj\Rbac\Models\User;
-use Szkj\Rbac\Requests\Users\UserStoreRequests;
+DummyUseNamespace
+use App\Models\User;
+use App\Http\Requests\Users\UserStoreRequests;
 
 class UserController extends BaseController
 {

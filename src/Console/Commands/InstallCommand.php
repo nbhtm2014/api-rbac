@@ -51,6 +51,8 @@ class InstallCommand extends Command
          * create controllers.
          */
         $this->createRbacControllers();
+        $this->createAuthControllers();
+        $this->createUserControllers();
         /*
          * create models.
          */
@@ -62,7 +64,7 @@ class InstallCommand extends Command
     public function createModels(): void
     {
         $files = [];
-        $this->listDir(__DIR__.'/../../Stubs/Models', $files);
+        $this->listDir(__DIR__ . '/../../Stubs/Models', $files);
         foreach ($files as $file) {
             $dir = basename(dirname($file));
 
@@ -71,6 +73,10 @@ class InstallCommand extends Command
             $filename = pathinfo($file, PATHINFO_FILENAME);
 
             $model = app_path("Models/{$filename}.php");
+
+            if ($filename === 'User' && file_exists($model)){
+                unlink($model);
+            }
 
             $stub_model = $this->laravel['files']->get($file);
 
@@ -82,14 +88,14 @@ class InstallCommand extends Command
                     $stub_model
                 )
             );
-            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $model));
+            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $model));
         }
     }
 
     public function createRbacControllers(): void
     {
         $files = [];
-        $this->listDir(__DIR__.'/../../Stubs/Controllers/Rbac', $files);
+        $this->listDir(__DIR__ . '/../../Stubs/Controllers/Rbac', $files);
         foreach ($files as $file) {
             $this->makeDir('Http/Controllers/Rbac');
 
@@ -109,12 +115,70 @@ class InstallCommand extends Command
             $this->laravel['files']->put(
                 $controller,
                 str_replace(
-                    ['DummyNamespace', 'DummyUseNamespace','DummyUseTransformerNamespace'],
-                    ['App\\Http\\Controllers\\Rbac', $use_base_controller,$use_transformer],
+                    ['DummyNamespace', 'DummyUseNamespace', 'DummyUseTransformerNamespace'],
+                    ['App\\Http\\Controllers\\Rbac', $use_base_controller, $use_transformer],
                     $stub_controller
                 )
             );
-            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $controller));
+            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $controller));
+        }
+    }
+
+
+
+    public function createAuthControllers(): void
+    {
+        $files = [];
+        $this->listDir(__DIR__ . '/../../Stubs/Controllers/Auth', $files);
+        foreach ($files as $file) {
+            $this->makeDir('Http/Controllers/Auth');
+
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+
+            $controller = app_path("Http/Controllers/Auth/{$filename}.php");
+
+            $stub_controller = $this->laravel['files']->get($file);
+
+            $use_base_controller = file_exists(app_path('Http/Controllers/BaseController.php'))
+                ? 'use App\\Http\\Controllers\\BaseController'
+                : 'use Szkj\\Rbac\\Controllers\\BaseController';
+            $this->laravel['files']->put(
+                $controller,
+                str_replace(
+                    ['DummyNamespace', 'DummyUseNamespace'],
+                    ['App\\Http\\Controllers\\Auth', $use_base_controller],
+                    $stub_controller
+                )
+            );
+            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $controller));
+        }
+    }
+
+    public function createUserControllers(): void
+    {
+        $files = [];
+        $this->listDir(__DIR__ . '/../../Stubs/Controllers/User', $files);
+        foreach ($files as $file) {
+            $this->makeDir('Http/Controllers/User');
+
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+
+            $controller = app_path("Http/Controllers/User/{$filename}.php");
+
+            $stub_controller = $this->laravel['files']->get($file);
+
+            $use_base_controller = file_exists(app_path('Http/Controllers/BaseController.php'))
+                ? 'use App\\Http\\Controllers\\BaseController'
+                : 'use Szkj\\Rbac\\Controllers\\BaseController';
+            $this->laravel['files']->put(
+                $controller,
+                str_replace(
+                    ['DummyNamespace', 'DummyUseNamespace'],
+                    ['App\\Http\\Controllers\\User', $use_base_controller],
+                    $stub_controller
+                )
+            );
+            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $controller));
         }
     }
 
@@ -122,11 +186,11 @@ class InstallCommand extends Command
     {
         $this->makeDir('Http/Requests');
         $files = [];
-        $this->listDir(__DIR__.'/../../Stubs/Requests', $files);
+        $this->listDir(__DIR__ . '/../../Stubs/Requests', $files);
         foreach ($files as $file) {
             $dir = basename(dirname($file));
 
-            $this->makeDir('Http/Requests/'.$dir);
+            $this->makeDir('Http/Requests/' . $dir);
 
             $filename = pathinfo($file, PATHINFO_FILENAME);
 
@@ -146,7 +210,7 @@ class InstallCommand extends Command
                     $stub_request
                 )
             );
-            $this->line('<info>'.$filename.' file was created:</info> '.str_replace(base_path(), '', $request));
+            $this->line('<info>' . $filename . ' file was created:</info> ' . str_replace(base_path(), '', $request));
         }
     }
 
@@ -161,7 +225,7 @@ class InstallCommand extends Command
             if ('.' == $v || '..' == $v) {
                 continue;
             }
-            $a = $directory.'/'.$v;
+            $a = $directory . '/' . $v;
             if (is_dir($a)) {
                 $this->listDir($a, $file);
             } else {
@@ -179,7 +243,7 @@ class InstallCommand extends Command
      */
     protected function getStub($name)
     {
-        return $this->laravel['files']->get(__DIR__."/../../Stubs/$name.stub");
+        return $this->laravel['files']->get(__DIR__ . "/../../Stubs/$name.stub");
     }
 
     /**
@@ -189,6 +253,6 @@ class InstallCommand extends Command
      */
     protected function makeDir($path = '')
     {
-        $this->laravel['files']->makeDirectory(app_path().'/'.$path, 0755, true, true);
+        $this->laravel['files']->makeDirectory(app_path() . '/' . $path, 0755, true, true);
     }
 }

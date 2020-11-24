@@ -4,13 +4,13 @@
  * Created by 2020/11/23 15:19
  **/
 
-namespace Szkj\Rbac\Requests\Users;
+namespace DummyNamespace;
 
 
 use Illuminate\Validation\Rule;
-use Szkj\Rbac\Requests\BaseRequest;
+DummyUseNamespace;
 
-class RegisterRequest extends BaseRequest
+class UserStoreRequests extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.
