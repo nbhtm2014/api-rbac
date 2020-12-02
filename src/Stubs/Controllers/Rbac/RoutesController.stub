@@ -130,10 +130,10 @@ class RoutesController extends BaseController
      * @param $route
      */
     protected function hasRoute($route){
-        if ($route->action['namespace'] == config('szkj.route.namespace')){
-            $uri = $this->createRoute($route);
-            $this->createRouteCatalog($route->uri, $uri);
-        }
+       if ($route->uri != '/') {
+             $uri = $this->createRoute($route);
+             $this->createRouteCatalog($route->uri, $uri);
+       }
     }
     /**
      * @param $route
@@ -168,14 +168,17 @@ class RoutesController extends BaseController
     protected function createRouteCatalog($path, $route): void
     {
         $path = trim($path, '/');
-        $path = explode('/', $path);
-        if ($route_catalog = RouteCatalog::query()->where('name', $path[config('szkj.route.route_level')])->first()) {
-            $route->pid = $route_catalog->id;
-            $route->save();
-        } else {
-            $route_catalog = RouteCatalog::query()->create(['name' => $path[config('szkj.route.route_level')]]);
-            $route->pid = $route_catalog->id;
-            $route->save();
+        if ($path) {
+            $path = explode('/', $path);
+            $name = isset($path[config('szkj.route.route_level')]) ? $path[config('szkj.route.route_level')] : $path[array_key_last($path)];
+            if ($route_catalog = RouteCatalog::query()->where('name', $name)->first()) {
+                $route->pid = $route_catalog->id;
+                $route->save();
+            } else {
+                $route_catalog = RouteCatalog::query()->create(['name' => $name]);
+                $route->pid = $route_catalog->id;
+                $route->save();
+            }
         }
     }
 }

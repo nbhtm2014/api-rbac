@@ -57,7 +57,7 @@ class RoutesCatalogsController extends BaseController
      */
     public function show($id)
     {
-        $route_catalog = RouteCatalog::query()->find($id)->with('hasManyRoutes');
+        $route_catalog = RouteCatalog::query()->with('hasManyRoutes')->find($id);
 
         return $this->success($route_catalog);
     }

@@ -41,7 +41,7 @@ class RoutesController extends BaseController
     {
         $data = Route::query()
             ->when($name = $request->name, function ($query) use ($name) {
-                $query->where('path', 'like', '%'.$name.'%')->orWhere('name', 'like', '%'.$name.'%');
+                $query->where('path', 'like', '%' . $name . '%')->orWhere('name', 'like', '%' . $name . '%');
             })
             ->where('pid', 0)
             ->paginate(15);
@@ -58,7 +58,7 @@ class RoutesController extends BaseController
         $data = $request->validated();
         $route = Route::query()
             ->when(isset($data['name']), function ($query) use ($data) {
-                $query->where('path', 'like', '%'.$data['name'].'%')->orWhere('name', 'like', '%'.$data['name'].'%');
+                $query->where('path', 'like', '%' . $data['name'] . '%')->orWhere('name', 'like', '%' . $data['name'] . '%');
             })
             ->where('pid', $data['pid'])
             ->get()
@@ -97,7 +97,7 @@ class RoutesController extends BaseController
             $route->$k = $v;
         }
         $route->save();
-        Log::info('修改了 '.$route->name.' 路由');
+        Log::info('修改了 ' . $route->name . ' 路由');
 
         return $this->success();
     }
@@ -115,7 +115,7 @@ class RoutesController extends BaseController
             //同步删除 角色路由表里的 对应该路由的所有数据
             $routes->hasManyRoleRoutes()->delete();
 
-            Log::info('删除了 '.$routes->path.$routes->name.' 路由');
+            Log::info('删除了 ' . $routes->path . $routes->name . ' 路由');
 
             $routes->delete();
 
@@ -128,12 +128,14 @@ class RoutesController extends BaseController
     /**
      * @param $route
      */
-    protected function hasRoute($route){
-        if ($route->action['namespace'] == config('szkj.route.namespace')){
+    protected function hasRoute($route)
+    {
+        if ($route->uri != '/') {
             $uri = $this->createRoute($route);
             $this->createRouteCatalog($route->uri, $uri);
         }
     }
+
     /**
      * @param $route
      *
@@ -150,9 +152,9 @@ class RoutesController extends BaseController
             $uri = Route::query()->updateOrCreate(
                 ['path' => $route->uri],
                 [
-                    'path' => $route->uri,
-                    'methods' => implode(',',$route->methods),
-                    'name' => $route->action['as'] ?? '',
+                    'path'    => $route->uri,
+                    'methods' => implode(',', $route->methods),
+                    'name'    => $route->action['as'] ?? '',
                 ]
             );
         }
@@ -167,14 +169,17 @@ class RoutesController extends BaseController
     protected function createRouteCatalog($path, $route): void
     {
         $path = trim($path, '/');
-        $path = explode('/', $path);
-        if ($route_catalog = RouteCatalog::query()->where('name', $path[config('szkj.route.route_level')])->first()) {
-            $route->pid = $route_catalog->id;
-            $route->save();
-        } else {
-            $route_catalog = RouteCatalog::query()->create(['name' => $path[config('szkj.route.route_level')]]);
-            $route->pid = $route_catalog->id;
-            $route->save();
+        if ($path) {
+            $path = explode('/', $path);
+            $name = isset($path[config('szkj.route.route_level')]) ? $path[config('szkj.route.route_level')] : $path[array_key_last($path)];
+            if ($route_catalog = RouteCatalog::query()->where('name', $name)->first()) {
+                $route->pid = $route_catalog->id;
+                $route->save();
+            } else {
+                $route_catalog = RouteCatalog::query()->create(['name' => $name]);
+                $route->pid = $route_catalog->id;
+                $route->save();
+            }
         }
     }
 }
