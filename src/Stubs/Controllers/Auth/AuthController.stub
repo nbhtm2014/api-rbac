@@ -14,7 +14,7 @@ use App\Models\User;
 use App\Http\Requests\Auths\LoginRequest;
 use App\Http\Requests\Auths\RestPasswordRequests;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use \Dingo\Api\Http\Response;
+use Dingo\Api\Http\Response;
 DummyUseNamespace;
 class AuthController extends BaseController
 {

@@ -15,7 +15,7 @@ use Szkj\Rbac\Models\User;
 use Szkj\Rbac\Requests\Auths\LoginRequest;
 use Szkj\Rbac\Requests\Auths\RestPasswordRequests;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use \Dingo\Api\Http\Response;
+use Dingo\Api\Http\Response;
 class AuthController extends BaseController
 {
     /**
