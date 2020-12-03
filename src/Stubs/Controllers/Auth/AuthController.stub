@@ -60,24 +60,24 @@ class AuthController extends BaseController
     }
 
      /**
-         * @param RestPasswordRequests $request
-         * @return Response
+     * @param RestPasswordRequests $request
+     * @return Response
+     */
+    public function restPassword(RestPasswordRequests $request): Response
+    {
+
+        $data = $request->validated();
+        /**
+         * @var User $user
          */
-        public function restPassword(RestPasswordRequests $request): Response
-        {
+        $user = User::query()->find(auth()->user()->id);
 
-            $data = $request->validated();
-            /**
-             * @var User $user
-             */
-            $user = User::query()->find(auth()->user()->id);
+        $user->password = Hash::make($data['password']);
 
-            $user->password = Hash::make($data['password']);
+        $user->save();
 
-            $user->save();
+        Log::info('修改密码');
 
-            Log::info('修改密码');
-
-            return $this->success();
-        }
+        return $this->success();
+    }
 }

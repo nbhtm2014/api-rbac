@@ -72,7 +72,7 @@ class UserController extends BaseController
     {
         $data = User::query()->find($id);
 
-        $data['role_name'] = auth()->user()->superadmin ? '超级管理员' : Role::query()->where('id', $data['role_id'])->first()->name;
+        $data['role_name'] = $data->superadmin ? '超级管理员' : Role::query()->where('id', $data['role_id'])->first()->name;
 
         $data['menus'] = $this->getMenus($data);
 
@@ -128,7 +128,7 @@ class UserController extends BaseController
 
         if ($user->superadmin) {
 
-            return Menu::query()->where('pid', 0)->with('children')->get();
+            return Menu::query()->where('pid', 0)->with('children')->get()->toArray();
 
         }
         //根据角色获取 对应菜单的ID
