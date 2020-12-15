@@ -84,11 +84,13 @@ class CreateRbacTable extends Migration
                 $table->bigIncrements('id');
                 $table->string('path', 255);
                 $table->string('methods', 50);
+                $table->string('uses', 255);
                 $table->string('name', 255)->nullable();
                 $table->tinyInteger('default')->default(0);
                 $table->integer('pid')->default(0);
+
                 $table->index(['pid'], 'pid');
-                $table->index(['path', 'name'], 'path');
+                $table->index(['uses','path', 'name'], 'path');
 
                 $table->timestamps();
             });

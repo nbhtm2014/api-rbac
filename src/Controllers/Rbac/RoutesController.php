@@ -144,14 +144,16 @@ class RoutesController extends BaseController
     protected function createRoute($route)
     {
         if ($uri = Route::query()->where('path', $route->uri)->first()) {
+            $uri->uses = $route->action['uses'];
             if (!$uri->name && empty($uri->name)) {
                 $uri->name = $route->action['as'] ?? '';
-                $uri->save();
             }
+            $uri->save();
         } else {
             $uri = Route::query()->updateOrCreate(
                 ['path' => $route->uri],
                 [
+                    'uses' =>$route->action['uses'],
                     'path'    => $route->uri,
                     'methods' => implode(',', $route->methods),
                     'name'    => $route->action['as'] ?? '',

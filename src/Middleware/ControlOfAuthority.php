@@ -24,12 +24,11 @@ class ControlOfAuthority
             $user = auth()->user();
             $route = class_exists('App\\Models\\Route') ? new \App\Models\Route() : new \Szkj\Rbac\Models\Route();
             if (!$route->query()->whereHas('hasManyRoleRoutes', function ($query) use ($user) {
-                $query->where('role_id', $user->role_id);
-            })->where('path', $request->getRequestUri())->count() && !$user->superadmin) {
+                    $query->where('role_id', $user->role_id);
+                })->where('uses', request()->route()->getAction()['uses'])->count() && !$user->superadmin) {
                 throw new RbacBadRequestExceptions(422, '您没有权限');
             }
         }
-
         return $next($request);
     }
 }
